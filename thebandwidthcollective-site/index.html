@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Bandwidth Collective™ — Your capacity is trying to tell you something.</title>
+<meta name="description" content="The Bandwidth Collective helps individuals and organizations identify the Bandwidth Tax™ — the hidden cost of overload — stabilize the strain, and reallocate capacity. Two doors, one framework." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ivory:#F4EEE1; --soft:#FBF8F1; --card:#FFFFFF;
+    --ink:#16130F; --black:#0B0A09; --muted:#5C5648;
+    --gold:#C9A449; --gold-lt:#ECD28A; --gold-dk:#B8862C;
+    --line:#E3DAC6;
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"Montserrat","Segoe UI",Arial,sans-serif;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none!important;transition:none!important;} }
+  body{margin:0; background:var(--ivory); color:var(--ink); font-family:var(--sans); font-size:18px; line-height:1.65; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--serif); font-weight:700; line-height:1.15; color:var(--ink); margin:0;}
+  p{margin:0 0 1rem;}
+  a{color:var(--gold-dk);}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  .eyebrow{font-family:var(--sans); font-weight:700; letter-spacing:.18em; text-transform:uppercase; font-size:.72rem; color:var(--gold-dk);}
+  .dia{display:inline-block; width:.5rem; height:.5rem; background:var(--gold); transform:rotate(45deg); margin-right:.55rem; vertical-align:middle;}
+  .skip{position:absolute; left:-999px; top:0; background:var(--ink); color:var(--ivory); padding:.6rem 1rem; z-index:100;}
+  .skip:focus{left:0;}
+  :focus-visible{outline:3px solid var(--gold-dk); outline-offset:2px; border-radius:4px;}
+
+  header.site{position:sticky; top:0; z-index:50; background:rgba(244,238,225,.92); backdrop-filter:saturate(120%) blur(6px); border-bottom:1px solid var(--line);}
+  .nav{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:14px 24px; max-width:var(--maxw); margin:0 auto;}
+  .brand{font-family:var(--serif); font-weight:800; font-size:1.18rem; color:var(--ink); text-decoration:none; white-space:nowrap;}
+  .brand .tm{font-size:.6em; vertical-align:super; color:var(--gold-dk);}
+  .nav-links{display:flex; gap:1.4rem; align-items:center; list-style:none; margin:0; padding:0;}
+  .nav-links a{font-family:var(--sans); font-weight:600; font-size:.86rem; letter-spacing:.04em; color:var(--ink); text-decoration:none; padding:.4rem 0; border-bottom:2px solid transparent;}
+  .nav-links a:hover, .nav-links a:focus-visible{border-bottom-color:var(--gold);}
+  .nav-cta{font-family:var(--sans); font-weight:700; font-size:.84rem; background:var(--ink); color:var(--ivory)!important; padding:.6rem 1rem; border-radius:999px; text-decoration:none;}
+  @media (max-width:840px){ .nav-links{display:none;} }
+
+  .hero{background:var(--ink); color:var(--ivory); padding:84px 0 76px;}
+  .hero .wrap{max-width:960px;}
+  .hero .eyebrow{color:var(--gold-lt);}
+  .hero h1{color:var(--ivory); font-size:clamp(2.3rem,5.6vw,3.7rem); margin:.5rem 0 1rem;}
+  .hero .tm{font-size:.5em; vertical-align:super; color:var(--gold-lt);}
+  .hero .lead{font-size:1.16rem; color:#E4DAC6; max-width:680px;}
+
+  section{padding:72px 0;}
+  .section-head{max-width:740px; margin-bottom:34px;}
+  .section-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem); margin:.4rem 0 .6rem;}
+  .section-head p{color:var(--muted);}
+
+  .doors{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media (max-width:760px){ .doors{grid-template-columns:1fr;} }
+  .door{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:36px 32px; display:flex; flex-direction:column; box-shadow:0 10px 30px rgba(22,19,15,.06);}
+  .door .ic{width:54px; height:54px; border-radius:50%; background:var(--soft); display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
+  .door .ic svg{width:26px; height:26px; stroke:var(--ink);}
+  .door h3{font-size:1.7rem; margin-bottom:.55rem;}
+  .door .voice{font-family:var(--serif); font-style:italic; color:var(--gold-dk); font-size:1.05rem; margin:.1rem 0 1rem;}
+  .door p{color:#3F3A31;}
+  .door ul{margin:0 0 1.5rem; padding-left:1.1rem; color:#3F3A31;}
+  .door ul li{margin-bottom:.55rem;}
+  .door .cta{margin-top:auto;}
+  .btn{display:inline-block; font-family:var(--sans); font-weight:700; font-size:.95rem; text-decoration:none; padding:.85rem 1.5rem; border-radius:999px; border:2px solid var(--ink);}
+  .btn-primary{background:var(--ink); color:var(--ivory); border-color:var(--ink);}
+  .btn-primary:hover{background:var(--gold-dk); border-color:var(--gold-dk);}
+  .btn-outline{background:transparent; color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--ivory);}
+
+  .tax{background:var(--soft);}
+  .systems{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:14px;}
+  @media (max-width:760px){ .systems{grid-template-columns:1fr 1fr;} }
+  .sys{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; text-align:center;}
+  .sys .ic{width:46px; height:46px; border-radius:50%; background:var(--soft); display:flex; align-items:center; justify-content:center; margin:0 auto 12px;}
+  .sys .ic svg{width:22px; height:22px; stroke:var(--ink);}
+  .sys h3{font-family:var(--sans); font-weight:700; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;}
+  .sys p{font-size:.9rem; color:var(--muted); margin:.4rem 0 0;}
+
+  .wrongfix{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:24px 0;}
+  @media (max-width:600px){ .wrongfix{grid-template-columns:1fr;} }
+  .wf{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px;}
+  .wf .lab{font-family:var(--sans); font-weight:700; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-dk); display:block; margin-bottom:.4rem;}
+  .wf p{margin:0; color:#3F3A31; font-style:italic;}
+  .why p.kicker{max-width:66ch; color:var(--ink);}
+  .nonprofit{background:var(--ink); color:var(--ivory);}
+  .nonprofit .eyebrow{color:var(--gold-lt);}
+  .nonprofit h2{color:var(--ivory); font-size:clamp(1.7rem,3.4vw,2.4rem); margin:.4rem 0 .8rem; max-width:18ch;}
+  .nonprofit p{color:#E4DAC6; max-width:64ch;}
+  .np-cta{display:flex; gap:14px; flex-wrap:wrap; margin-top:1.4rem;}
+  .np-cta .btn-primary{background:var(--gold-dk); border-color:var(--gold-lt);}
+  .np-cta .btn-outline{color:var(--ivory); border-color:var(--gold-lt);}
+  .np-cta .btn-outline:hover{background:var(--gold-dk);}
+  .np-second{font-size:.92rem; color:#C9BFA8; margin-top:1.4rem;}
+
+  .research{background:var(--soft);}
+  .nl{background:var(--soft);}
+  .notes{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px;}
+  @media (max-width:760px){ .notes{grid-template-columns:1fr 1fr;} }
+  .note{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .note .no{font-family:var(--sans); font-weight:700; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-dk);}
+  .note h3{font-family:var(--serif); font-size:1.02rem; margin:.25rem 0 .35rem;}
+  .note p{font-size:.8rem; color:var(--muted); margin:0;}
+  .more{margin-top:24px;}
+  section.testi{background:var(--ink); color:var(--ivory);}
+  section.testi .eyebrow{color:var(--gold-lt);}
+  section.testi h2{color:var(--ivory);}
+  section.testi .section-head p{color:#C9BFA8;}
+  .stars{color:var(--gold-lt); letter-spacing:3px; font-size:.85rem; display:block; margin-bottom:.55rem;}
+  .featured{border-left:3px solid var(--gold); padding-left:24px; margin:0 0 38px; max-width:920px;}
+  .featured .big{font-family:var(--serif); font-style:italic; font-size:1.5rem; color:var(--ivory); margin:0 0 .7rem; line-height:1.3;}
+  .featured .body{color:#D9CFBC; margin:0 0 .9rem;}
+  .featured .who{font-family:var(--sans); font-weight:600; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-lt);}
+  .tlist{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:8px;}
+  @media (max-width:900px){ .tlist{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .tlist{grid-template-columns:1fr;} }
+  .quote{background:#1f1a14; border:1px solid var(--gold-dk); border-radius:14px; padding:22px;}
+  .quote h3{font-family:var(--serif); font-size:1.05rem; color:var(--ivory); margin:.1rem 0 .6rem;}
+  .quote .body{font-style:italic; font-size:.9rem; color:#D9CFBC; margin:0 0 1rem;}
+  .quote .who{font-family:var(--sans); font-weight:600; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase; color:var(--gold-lt); line-height:1.4;}
+  .testi .closing{font-family:var(--serif); font-style:italic; font-size:1.2rem; color:var(--gold-lt); text-align:center; max-width:760px; margin:42px auto 0;}
+  .capture{background:var(--soft); text-align:center;}
+  .capture h2{font-size:clamp(1.7rem,3.4vw,2.4rem);}
+  .capture p{color:var(--muted); max-width:560px; margin:.6rem auto 1.6rem;}
+  .form{display:flex; gap:12px; max-width:520px; margin:0 auto; flex-wrap:wrap; justify-content:center;}
+  .form label{position:absolute;left:-999px;}
+  .form input{flex:1 1 260px; min-width:0; padding:.95rem 1.1rem; border-radius:999px; border:1px solid var(--line); font-family:var(--sans); font-size:1rem;}
+  .form button{background:var(--gold-dk); color:#fff; border:none; padding:.95rem 1.6rem; border-radius:999px; font-family:var(--sans); font-weight:700; font-size:1rem; cursor:pointer;}
+  .form .note{flex-basis:100%; font-size:.78rem; color:var(--muted); margin-top:.5rem;}
+
+  footer.site{background:var(--black); color:#C9BFA8; padding:48px 0 28px; font-size:.9rem;}
+  footer.site .brand-f{font-family:var(--serif); font-weight:800; font-size:1.2rem; color:var(--ivory);}
+  footer.site .cols{display:grid; grid-template-columns:2fr 1fr 1fr; gap:30px; margin-bottom:28px;}
+  @media (max-width:760px){ footer.site .cols{grid-template-columns:1fr;} }
+  footer.site h4{font-family:var(--sans); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-lt); margin:0 0 .6rem;}
+  footer.site a{color:#C9BFA8; text-decoration:none;}
+  footer.site .cols a{display:block; margin:.35rem 0;}
+  footer.site a:hover{color:var(--gold-lt);}
+  .legal{border-top:1px solid #2a2620; padding-top:18px; margin-top:24px; font-size:.78rem; color:#8c8475;}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="#top">The Bandwidth Collective<span class="tm">™</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#doors">For Individuals</a></li>
+        <li><a href="#doors">For Organizations</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#book">Book</a></li>
+        <li><a class="nav-cta" href="#start">Start here</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<a id="top"></a>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dia" aria-hidden="true"></span>It's not burnout. It's a Bandwidth Tax™.</p>
+    <h1 id="hero-h">Your capacity is trying to tell you something.</h1>
+    <p class="lead">The Bandwidth Collective™ helps individuals and organizations identify hidden strain, stabilize what can be changed, and reallocate capacity with clarity.</p>
+    <p style="margin-top:1.4rem;"><a class="btn btn-primary" style="border-color:var(--gold);background:var(--gold-dk);" href="#doors">Choose your door ↓</a></p>
+  </div>
+</section>
+
+<!-- DOORS -->
+<section id="doors" aria-labelledby="doors-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Where would you like to start?</p>
+      <h2 id="doors-h">Two doors, one framework.</h2>
+      <p>Pick the path that fits. You can explore the framework and the book without choosing.</p>
+    </div>
+    <div class="doors">
+      <div class="door">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+        <h3>For Individuals</h3>
+        <p class="voice">Overwhelm leaves clues.</p>
+        <ul>
+          <li>The <strong>From Clues to Capacity™</strong> system — one guided journey, three steps: Diagnose, Reallocate, Deeper Dive.</li>
+          <li>Made for high-performing women, especially 40+, who aren't showing up the way they want to.</li>
+          <li>Includes a free read of Chapter 1 of <em>Overwhelm Leaves Clues</em>, plus The Collective community.</li>
+        </ul>
+        <p class="cta"><a class="btn btn-primary" href="#start">Start with the Compass</a></p>
+      </div>
+      <div class="door">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l7-4 7 4v14"/><path d="M21 21H3"/><path d="M9 9h0M13 9h0M9 13h0M13 13h0M9 17h0M13 17h0"/></svg></span>
+        <h3>For Organizations</h3>
+        <p class="voice">We diagnose what others only measure.</p>
+        <p>See where staff capacity is being taxed and align employees, managers, and leadership on realistic reallocation decisions.</p>
+        <ul>
+          <li>Start with a briefing or a 30-day pilot <span style="white-space:nowrap">(5–25 employees)</span>.</li>
+          <li>Research-backed diagnostics and leadership intelligence.</li>
+        </ul>
+        <p class="cta"><a class="btn btn-outline" href="#nonprofit">Discuss Your Pilot Options</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework" class="tax" aria-labelledby="tax-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>The framework</p>
+      <h2 id="tax-h">The Bandwidth Tax™ — the cost you didn't know you were paying.</h2>
+      <p>The invisible cost when strain builds across four core systems. We map where capacity is draining, so you can decide what to reduce, protect, release, or redesign.</p>
+    </div>
+    <div class="systems">
+      <div class="sys">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.2c0-1 1.1-1.7 2.5-1.7s2.5.7 2.5 1.7-1.1 1.6-2.5 1.6-2.5.7-2.5 1.7 1.1 1.7 2.5 1.7 2.5-.7 2.5-1.7"/></svg></span>
+        <h3>Money</h3><p>Financial strain that quietly taxes focus and decisions.</p>
+      </div>
+      <div class="sys">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <h3>Time</h3><p>When recovery hours collapse, capacity goes with them.</p>
+      </div>
+      <div class="sys">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M12 13c2 0 3-1.5 3-3"/></svg></span>
+        <h3>Environment</h3><p>Disordered spaces produce disordered output.</p>
+      </div>
+      <div class="sys">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.3-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.7-7 9-7 9z"/></svg></span>
+        <h3>Well-being</h3><p>Sustained load erodes the base under everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ORGANIZATIONS -->
+<section id="why-orgs" class="why" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>For organizations</p>
+      <h2 id="why-h">Why organizations need this.</h2>
+      <p>Here's the truth most leaders miss: their teams are already paying this tax — and everyone reaches for the wrong fix.</p>
+    </div>
+    <div class="wrongfix">
+      <div class="wf"><span class="lab">The employee thinks</span><p>"It's a vacation or a couple of sick days."</p></div>
+      <div class="wf"><span class="lab">The employer thinks</span><p>"It's a team offsite or a pizza party."</p></div>
+    </div>
+    <p class="kicker">But this kind of Bandwidth Tax™ is built into the system — none of that touches it. At The Bandwidth Collective, we diagnose what's already happening beneath the surface, across four research-backed dimensions, and map a practical plan to recover and reallocate that capacity.</p>
+    <p style="margin-top:1.2rem;"><a class="btn btn-primary" href="#nonprofit">See how we help organizations</a></p>
+  </div>
+</section>
+
+<!-- NONPROFIT CALLOUT -->
+<section id="nonprofit" class="nonprofit" aria-labelledby="np-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dia" aria-hidden="true"></span>For organizations</p>
+    <h2 id="np-h">For Nonprofits Carrying the Work of Care</h2>
+    <p>Nonprofit teams often carry mission-critical work with limited capacity, stretched staffing, and rising emotional load. The Bandwidth Collective™ helps organizations identify where staff capacity is being taxed, where workload decisions need to be clarified, and what can be deferred, reduced, removed, or redistributed — before strain becomes burnout, disengagement, or turnover.</p>
+    <p>If your nonprofit is trying to better support the people doing the work, let's discuss how The Bandwidth Compass™ for Organizations can help you see where capacity is being drained and what your team may need next.</p>
+    <div class="np-cta">
+      <a class="btn btn-primary" href="#start">Let's Discuss How to Better Support Your Staff</a>
+      <a class="btn btn-outline" href="#start">Request a Staff Support Webinar</a>
+    </div>
+    <p class="np-second">Other collaborations are welcome too — community groups, membership organizations, women's groups, faith-based groups, and organizations seeking specialized webinar or workshop services.</p>
+  </div>
+</section>
+
+<!-- IN THE NEWS (Organizations) -->
+<section id="in-the-news" class="nl" aria-labelledby="news-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>For organizations</p>
+      <h2 id="news-h">In the news this week.</h2>
+      <p>The Bandwidth Tax™ Conversation — our ongoing LinkedIn discussion on capacity, burnout, and the future of work.</p>
+    </div>
+    <p><a class="btn btn-outline" href="https://www.linkedin.com/in/samone-davis-a09a2a10/recent-activity/all/" target="_blank" rel="noopener">Read this week's conversation on LinkedIn →</a></p>
+  </div>
+</section>
+
+<!-- RESEARCH / FIELD NOTES -->
+<section id="research" class="research" aria-labelledby="res-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>The evidence</p>
+      <h2 id="res-h">Built on research, not vibes.</h2>
+      <p>The Bandwidth Tax™ Field Notes — an 11-part series grounding the framework in peer-reviewed research, from individual cognition to organizational infrastructure.</p>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="no">No. 01</span><h3>Cognitive Bandwidth</h3><p>Mani et al. · 2013</p></div>
+      <div class="note"><span class="no">No. 02</span><h3>Time Reallocation</h3><p>Whillans et al. · 2017</p></div>
+      <div class="note"><span class="no">No. 06</span><h3>Burnout Is a Systems Problem</h3><p>U.S. Surgeon General · 2022</p></div>
+      <div class="note"><span class="no">No. 10</span><h3>Staff Capacity &amp; Service Quality</h3><p>Li et al., JAMA Netw. Open · 2024</p></div>
+    </div>
+    <p class="more"><a class="btn btn-outline" href="#">View all 11 Field Notes →</a></p>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book" aria-labelledby="book-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>The origin story</p>
+      <h2 id="book-h">Overwhelm Leaves Clues</h2>
+      <p>The memoir and guide where founder Samone Davis first named the Bandwidth Tax™ — and mapped the way back to usable capacity. Start with Chapter 1, free.</p>
+    </div>
+    <p><a class="btn btn-primary" href="#">Read Chapter 1 — free</a> &nbsp; <a href="#" style="font-family:var(--sans);font-weight:600;">Get the book →</a></p>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter" class="nl" aria-labelledby="nl-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Weekly newsletter</p>
+      <h2 id="nl-h">The Bandwidth Note™.</h2>
+      <p>A free weekly note for individuals — one clue, one reflection, and one way to think differently about your bandwidth: your time, money, well-being, and environment.</p>
+    </div>
+    <p><a class="btn btn-primary" href="newsletter/the-bandwidth-note-quiet-clues.pdf" target="_blank" rel="noopener">Read the latest note →</a> &nbsp; <a href="#start" style="font-family:var(--sans);font-weight:600;">Subscribe ↓</a></p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi" aria-labelledby="testi-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>In their own words</p>
+      <h2 id="testi-h">Women around the world are saying…</h2>
+    </div>
+    <div class="featured">
+      <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+      <p class="big">"I realized I was doing too much while actually doing nothing well."</p>
+      <p class="body">"It revealed the truth I have been avoiding… With the Bandwidth Snapshot™, I now understand where I am, and how to move forward. It's a reality check."</p>
+      <p class="who">Faith, Nigeria · Wife &amp; Mother of Three · The Bandwidth Compass™</p>
+    </div>
+    <div class="tlist">
+      <div class="quote">
+        <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <h3>See the overwhelm you've stopped noticing.</h3>
+        <p class="body">"The tool helped me identify overwhelm I had become so accustomed to that I'd stopped consciously recognizing it."</p>
+        <p class="who">Tatiana, USA · 40+, Empty Nester · Founding Member · From Clues to Capacity™ system</p>
+      </div>
+      <div class="quote">
+        <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <h3>Actionable steps, not more overwhelm.</h3>
+        <p class="body">"I loved the bite-size breakdown of things to implement that were not overwhelming. The results were surprisingly accurate."</p>
+        <p class="who">Juliette, South Africa · 50+, Wife &amp; Grandmother · Founding Member · From Clues to Capacity™ system</p>
+      </div>
+      <div class="quote">
+        <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <h3>Clear steps, even for a different kind of mind.</h3>
+        <p class="body">"It helped me reason out what the issue might be and walked me through how to deal with it step by step. It gave me advice like 'do this in 48 hours' — and the steps were spot on."</p>
+        <p class="who">Jolene, Portugal · Wife, Mom of 3 · Neurodivergent · Founding Member · From Clues to Capacity™ system</p>
+      </div>
+      <div class="quote">
+        <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <h3>Clarity on what's really triggering the overwhelm.</h3>
+        <p class="body">"The From Clues to Capacity™ system made me see with more clarity and identify what is really triggering the state of mind that makes me feel stuck. I was impressed with the practical steps toward a clearer path."</p>
+        <p class="who">Joelma, Angola · Wife, Mom of 3 · Founding Member · Portuguese Edition · From Clues to Capacity™ system</p>
+      </div>
+    </div>
+    <p class="closing">Would you like to see what the From Clues to Capacity™ system can help you see? Get the tools today and start being the person you want to be again.</p>
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE (Netlify) -->
+<section id="start" class="capture" aria-labelledby="cap-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Start here</p>
+    <h2 id="cap-h">Find where you're paying the Bandwidth Tax™.</h2>
+    <p>Leave your email and we'll send your starting point — plus the free first chapter of <em>Overwhelm Leaves Clues</em>.</p>
+    <form class="form" name="start" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="start" />
+      <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+      <button type="submit">Send my starting point</button>
+      <span class="note">We'll never share your email. One-tap unsubscribe anytime.</span>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <p class="brand-f">The Bandwidth Collective™</p>
+        <p style="max-width:40ch;">Diagnose. Stabilize. Reallocate. One framework helping individuals and organizations reclaim usable capacity.</p>
+        <p><a href="mailto:samone@thebandwidthcollective.com">samone@thebandwidthcollective.com</a></p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#doors">For Individuals</a>
+        <a href="#doors">For Organizations</a>
+        <a href="#framework">The Framework</a>
+        <a href="#research">Research</a>
+        <a href="#newsletter">The Bandwidth Note™</a>
+        <a href="#book">The Book</a>
+      </div>
+      <div>
+        <h4>More</h4>
+        <a href="#start">Start here</a>
+        <a href="#">Contact</a>
+        <a href="#">FAQ</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+    <p style="font-size:.85rem; color:#C9BFA8;">Soft Life Abroad™ is a separate relocation brand, powered by the Bandwidth framework.</p>
+    <div class="legal">© 2026 Soft Life Chronicles LLC. The Bandwidth Collective™, Bandwidth Tax™, The Bandwidth Compass™, From Clues to Capacity™ are trademarks of Soft Life Chronicles LLC. · It's not burnout. It's a Bandwidth Tax™.</div>
+  </div>
+</footer>
+</body>
+</html>
