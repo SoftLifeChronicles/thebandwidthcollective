@@ -143,7 +143,7 @@
   .bwd-card .lab{font-family:var(--sans); font-size:.66rem; letter-spacing:.26em; text-transform:uppercase; color:var(--gold-lt); display:block; margin-bottom:8px;}
   .bwd-card h3{font-family:var(--serif); font-size:1.3rem; color:var(--ivory); margin:0 0 4px;}
   .bwd-card .sub{font-size:.9rem; color:#C9BFA8; margin:0 0 20px;}
-  .bwd-syscol{display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:22px;}
+  .bwd-syscol{display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:22px; grid-auto-rows:1fr;}
   .bwd-chip{cursor:pointer; text-align:left; font-family:var(--sans); background:rgba(244,238,225,.04); border:1px solid rgba(244,238,225,.14); border-radius:11px; padding:14px 14px 12px; color:var(--ivory); transition:background .35s,border-color .35s,transform .2s;}
   .bwd-chip:hover{transform:translateY(-2px);}
   .bwd-chip .top{display:flex; align-items:center; gap:8px; margin-bottom:9px;}
@@ -183,8 +183,8 @@
     .btn{ font-size:.85rem; padding:.8rem 1.15rem; }
     /* Stack the two nonprofit CTAs full-width so long labels have room */
     .np-cta{ flex-direction:column; }
-    /* Auto-scale the longest labels so they never wrap or overflow */
-    .np-cta .btn{ width:100%; padding:.8rem .95rem; font-size:clamp(.64rem,3.1vw,.95rem); }
+    /* Auto-scale the longest single-line labels so they never wrap or run off screen */
+    .np-cta .btn, #in-the-news .btn{ width:100%; padding:.8rem .9rem; font-size:clamp(.62rem,3vw,.95rem); }
   }
 </style>
 </head>
@@ -213,7 +213,7 @@
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap">
-    <p class="eyebrow"><span class="dia" aria-hidden="true"></span>It's not burnout. It's a Bandwidth Tax™.</p>
+    <p class="eyebrow"><span class="dia" aria-hidden="true"></span>It's not burnout. It's a Bandwidth Tax™</p>
     <h1 id="hero-h">Your capacity is trying to tell you something.</h1>
     <p class="lead">The Bandwidth Collective™ helps individuals and organizations identify hidden strain, stabilize what can be changed, and reallocate capacity with clarity.</p>
     <p style="margin-top:1.4rem;"><a class="btn btn-primary" style="border-color:var(--gold);background:var(--gold-dk);" href="#doors">Choose your door ↓</a></p>
@@ -466,7 +466,7 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Weekly newsletter</p>
-      <h2 id="nl-h">The Bandwidth Note™.</h2>
+      <h2 id="nl-h">The Bandwidth Note™</h2>
       <p>A free weekly note for individuals — one clue, one reflection, and one way to think differently about your bandwidth: your time, money, environment, and well-being.</p>
       <p>It's how The Collective stays close between resets. Here in The Collective, we read the clues, name the strain, and reallocate capacity with clarity.</p>
     </div>
@@ -569,7 +569,7 @@
       </div>
     </div>
     <p style="font-size:.85rem; color:#C9BFA8; max-width:74ch;">If you've identified your Environment as the system under the most strain, moving abroad might feel like the answer. But how can you be sure? <strong style="color:var(--ivory);">Soft Life Abroad™</strong> is our sister brand dedicated to de-risking your move. We don't handle logistics; we help you run the diagnostics. Powered by the same Bandwidth framework, we give you the tools to pressure-test your chosen country, ensuring it can truly support the life you want to build. Before you commit, get the data.</p>
-    <div class="legal">© 2026 Soft Life Chronicles LLC. The Bandwidth Collective™, Bandwidth Tax™, The Bandwidth Compass™, From Clues to Capacity™ are trademarks of Soft Life Chronicles LLC. · It's not burnout. It's a Bandwidth Tax™.</div>
+    <div class="legal">© 2026 The Bandwidth Collective LLC. The Bandwidth Collective™, Bandwidth Tax™, The Bandwidth Compass™, From Clues to Capacity™ are trademarks of The Bandwidth Collective LLC. · It's not burnout. It's a Bandwidth Tax™.</div>
   </div>
 </footer>
 </body>
