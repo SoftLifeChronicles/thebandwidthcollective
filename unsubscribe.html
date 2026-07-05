@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unsubscribe — The Bandwidth Note™ — The Bandwidth Collective™</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--ivory:#F4EEE1;--ink:#16130F;--muted:#5C5648;--gold:#C9A449;--gold-lt:#ECD28A;--gold-dk:#B8862C;--serif:"Playfair Display",Georgia,serif;--sans:"Montserrat","Segoe UI",Arial,sans-serif;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ink);color:var(--ivory);font-family:var(--sans);font-size:18px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  .wrap{max-width:680px;margin:auto;padding:64px 24px;text-align:center;}
+  .dia{display:inline-block;width:.6rem;height:.6rem;background:var(--gold);transform:rotate(45deg);margin:0 .35rem;}
+  .eyebrow{font-family:var(--sans);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:.75rem;color:var(--gold-lt);margin-bottom:1rem;}
+  h1{font-family:var(--serif);font-weight:800;font-size:clamp(2rem,5vw,3rem);color:var(--ivory);margin:0 0 1rem;line-height:1.15;}
+  p{color:#E4DAC6;max-width:52ch;margin:0 auto 1.6rem;}
+  form{max-width:420px;margin:0 auto;text-align:left;}
+  label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9C0AC;margin:0 0 .4rem;}
+  input[type=email]{width:100%;padding:.9rem 1rem;border-radius:12px;border:1px solid #4A4436;background:#221E17;color:var(--ivory);font-family:var(--sans);font-size:1rem;margin-bottom:1.2rem;}
+  input[type=email]:focus{outline:none;border-color:var(--gold);}
+  .btn{display:inline-block;width:100%;font-family:var(--sans);font-weight:700;font-size:1rem;text-decoration:none;padding:1rem 1.8rem;border-radius:999px;background:var(--gold-dk);color:#fff;border:2px solid var(--gold-lt);cursor:pointer;text-align:center;}
+  .btn:hover{background:var(--gold);}
+  .small{font-size:.85rem;color:#9C9484;margin-top:2rem;}
+  .small a{color:var(--gold-lt);}
+  #done{display:none;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="form-view">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>The Bandwidth Note™</p>
+      <h1>Unsubscribe</h1>
+      <p>No hard feelings — your bandwidth is yours to allocate. Enter the email you subscribed with and we'll remove you from The Bandwidth Note™.</p>
+      <form name="unsubscribe" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/unsubscribe.html?done=1">
+        <input type="hidden" name="form-name" value="unsubscribe" />
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+        <button type="submit" class="btn">Unsubscribe me</button>
+      </form>
+      <p class="small">Changed your mind? <a href="index.html">Return to The Bandwidth Collective</a></p>
+    </div>
+    <div id="done">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Done</p>
+      <h1>You're unsubscribed.</h1>
+      <p>You've been removed from The Bandwidth Note™. The door stays open — you can resubscribe anytime from the site.</p>
+      <p class="small"><a href="index.html">← Back to The Bandwidth Collective</a></p>
+    </div>
+  </div>
+  <script>
+    if (new URLSearchParams(location.search).get('done') === '1') {
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('done').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
