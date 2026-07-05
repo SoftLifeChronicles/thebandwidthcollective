@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The cost did not disappear. It moved. — The Bandwidth Note™</title>
+<meta name="description" content="This week: when a return-to-office decision changes on paper, the cost does not stay on paper. It moves — from the policy into the person.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@400;500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F4EEE1; --ink:#16130F; --body:#33302A; --muted:#8B8170;
+    --gold:#C9A449; --gold-lt:#ECD28A; --gold-dk:#B8862C; --label:#8A6D22;
+    --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+    --sans:"Montserrat","Segoe UI",Helvetica,Arial,sans-serif;
+    --script:"Dancing Script","Segoe Script",cursive;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:#E7DDC9; color:var(--body); font-family:var(--sans); line-height:1.75; -webkit-font-smoothing:antialiased;}
+  .sheet{max-width:640px; margin:0 auto; background:var(--ivory);
+    box-shadow:0 24px 60px -30px rgba(22,19,15,.45), 0 2px 8px rgba(22,19,15,.06);}
+  .bar{height:6px; background:linear-gradient(90deg,#B8862C 0%,#C9A449 30%,#ECD28A 52%,#C9A449 72%,#B8862C 100%);}
+  .pad{padding-left:56px; padding-right:56px;}
+  header{padding:52px 56px 40px; text-align:center;}
+  .mast-kick{display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:26px; font-size:12px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--label);}
+  .mast-kick .r1{width:44px; height:1px; background:linear-gradient(90deg,transparent,var(--gold));}
+  .mast-kick .r2{width:44px; height:1px; background:linear-gradient(90deg,var(--gold),transparent);}
+  h1.mast{font-family:var(--serif); font-size:48px; font-weight:700; letter-spacing:.005em; line-height:1.02; color:var(--ink); margin:0;}
+  h1.mast .note{font-style:italic; color:var(--gold-dk);}
+  .mast-rule{width:170px; height:3px; margin:30px auto 0; border-radius:3px; background:linear-gradient(90deg,#B8862C 0%,#C9A449 34%,#ECD28A 52%,#C9A449 68%,#B8862C 100%);}
+  .mast-by{font-size:11px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:var(--ink); margin-top:22px;}
+  .dateline{margin-top:22px; display:flex; align-items:center; justify-content:center; gap:14px;
+    font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--muted);}
+  .dateline .r1{width:34px; height:1px; background:linear-gradient(90deg,transparent,var(--gold));}
+  .dateline .r2{width:34px; height:1px; background:linear-gradient(90deg,var(--gold),transparent);}
+  h2.lead{font-family:var(--serif); font-size:34px; font-weight:700; line-height:1.14; letter-spacing:-.01em; color:var(--ink); margin:0; text-wrap:balance;}
+  .gold-text{background:linear-gradient(100deg,#B8862C 0%,#C9A449 26%,#ECD28A 52%,#C9A449 74%,#9A7D24 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; font-style:italic;}
+  p{margin:0 0 1.15em; font-size:17px;}
+  .welcome{font-family:var(--serif); font-size:20px; font-style:italic; color:var(--ink); margin-bottom:1.4em;}
+  blockquote{margin:0; padding:6px 0 6px 26px; border-left:3px solid var(--gold);
+    font-family:var(--serif); font-style:italic; font-size:24px; line-height:1.34; color:var(--ink);}
+  .litany{font-family:var(--serif); font-size:21px; line-height:1.9; color:var(--ink);}
+  .litany.refrain{font-size:23px; line-height:1.8;}
+  .voice{margin:24px 56px 0; padding:20px 24px; background:rgba(201,164,73,.10); border-left:3px solid var(--gold);
+    font-family:var(--serif); font-style:italic; font-size:18px; line-height:2; color:#4A4239;}
+  .marker{font-size:11px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--label); margin-bottom:18px;}
+  .clue{font-family:var(--serif); font-size:22px; line-height:1.7; color:var(--ink); margin-top:22px;}
+  .clue .not{color:var(--muted);}
+  .stmts{font-family:var(--serif); font-size:21px; line-height:1.85; color:var(--ink);}
+  h2.question{font-family:var(--serif); font-size:28px; font-weight:700; font-style:italic; line-height:1.28; color:var(--ink); margin:18px 0 0; text-wrap:balance;}
+  .sig-hand{font-family:var(--script); font-size:40px; font-weight:600; line-height:1; color:var(--gold-dk); margin:2px 0 8px;}
+  .sig-brand{font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--muted);}
+  .divider{display:flex; align-items:center; justify-content:center; gap:12px; padding:44px 56px;}
+  .divider .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .divider .line{width:120px; height:1px; background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
+  .diamond-div{display:flex; align-items:center; justify-content:center; gap:18px; padding:44px 56px;}
+  .diamond-div .r{width:78px; height:1px;}
+  .diamond-div .r1{background:linear-gradient(90deg,transparent,var(--gold));}
+  .diamond-div .r2{background:linear-gradient(90deg,var(--gold),transparent);}
+  .diamond-div .d{color:var(--gold-dk); font-size:12px; line-height:1;}
+  .card{background:#EDE7D9; border-left:3px solid var(--gold); margin:0 44px; padding:30px 34px 36px;}
+  .card .marker{margin-bottom:16px;}
+  footer{margin-top:44px; padding:28px 56px 46px; border-top:1px solid #E2D6BE; text-align:center;}
+  footer .site{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--label); margin-bottom:12px;}
+  footer .fine{font-size:12px; line-height:1.7; color:#9A9080;}
+  footer a{color:var(--muted); text-decoration:underline;}
+  footer .copy{font-size:11px; color:#B0A691; margin-top:14px;}
+  @media (max-width:600px){
+    body{background:var(--ivory);}
+    .sheet{box-shadow:none;}
+    .pad, header, .divider, .diamond-div, .voice, footer{padding-left:26px; padding-right:26px;}
+    .voice{margin-left:26px; margin-right:26px;}
+    .card{margin-left:20px; margin-right:20px; padding:24px 24px 28px;}
+    header{padding-top:40px;}
+    h1.mast{font-size:34px;}
+    .mast-rule{width:130px;}
+    h2.lead{font-size:28px;}
+    blockquote{font-size:21px;}
+    .litany{font-size:19px;} .litany.refrain{font-size:20px;} .stmts{font-size:19px;}
+    h2.question{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="bar"></div>
+
+    <header>
+      <div class="mast-kick"><span class="r1"></span><span>The Weekly Note</span><span class="r2"></span></div>
+      <h1 class="mast">The Bandwidth <span class="note">Note</span></h1>
+      <div class="mast-rule"></div>
+      <div class="mast-by">by The Bandwidth Collective&trade;</div>
+      <div class="dateline" style="margin-top:26px;"><span class="r1"></span><span>Saturday, July 4, 2026</span><span class="r2"></span></div>
+    </header>
+
+    <section class="pad">
+      <h2 class="lead">The cost did not disappear.<br><span class="gold-text">It moved.</span></h2>
+    </section>
+
+    <section class="pad" style="padding-top:34px;">
+      <p class="welcome">Welcome to The Collective.</p>
+      <p>This week I kept coming back to one sentence from a California state worker.</p>
+      <p>She was talking about the new return-to-office policy &mdash; thousands of state employees moved from two days in office to four. There is a lot to say about that kind of policy. People will debate productivity. Collaboration. Fairness. Whether it helps or hurts.</p>
+      <p>But none of those arguments were what stayed with me.</p>
+      <p style="margin-bottom:.4em;">This sentence did:</p>
+    </section>
+
+    <figure class="pad" style="margin:26px 0 0;">
+      <blockquote>&ldquo;It&rsquo;s hard, it changes life completely. Financially it&rsquo;s a strain, and everything is already stretched to the nines.&rdquo;</blockquote>
+    </figure>
+
+    <section class="pad" style="padding-top:30px;">
+      <p>I want to sit with that for a minute.</p>
+      <p>Because when a decision changes on paper, the cost does not stay on paper.</p>
+    </section>
+
+    <div class="pad litany" style="padding-top:20px; padding-bottom:4px;">
+      <div>It enters the morning routine.</div>
+      <div>It enters the gas budget.</div>
+      <div>It enters the childcare plan.</div>
+      <div>It enters the body.</div>
+      <div>It enters the space between work ending and the rest of life beginning.</div>
+    </div>
+
+    <section class="pad" style="padding-top:22px;">
+      <p>And for a lot of people, that space is already thin.</p>
+    </section>
+
+    <div class="diamond-div" style="padding-top:40px; padding-bottom:40px;"><span class="r r1"></span><span class="d">&#9670;</span><span class="r r2"></span></div>
+
+    <section class="pad">
+      <p>Here is what I notice about the Bandwidth Tax&trade; in moments like this one:</p>
+      <p class="welcome" style="margin-bottom:1.15em;">It is rarely announced.</p>
+      <p>It moves in quietly, through the adjustments we make that we tell ourselves are not a big deal.</p>
+    </section>
+
+    <div class="voice">
+      <div>I can make it work.</div>
+      <div>I just need to adjust.</div>
+      <div>It&rsquo;s only a few more days.</div>
+      <div>I&rsquo;ll figure out the childcare.</div>
+      <div>I&rsquo;ll get up earlier.</div>
+      <div>I&rsquo;ll rest when things settle down.</div>
+    </div>
+
+    <section class="pad" style="padding-top:28px;">
+      <p>And sometimes we do make it work. That is part of the problem.</p>
+      <p>High-functioning people can absorb a lot before anyone notices the cost. We rearrange the schedule. We shift the money. We stay up later. We keep performing. We keep showing up.</p>
+      <p>But absorbing a cost is not the same as being unaffected by it.</p>
+      <p>That distinction matters more than I think we are usually taught.</p>
+      <p>When a commute gets longer, the visible issue is transportation. The hidden issue is recovery time.</p>
+      <p>When someone comes home with less patience, less energy, less room for the rest of life &mdash; that does not always show up on a dashboard. But the cost is still there.</p>
+    </section>
+
+    <div class="pad litany" style="padding-top:20px; padding-bottom:4px;">
+      <div>It may show up in the groceries they do not buy.</div>
+      <div>It may show up in the class they stop attending.</div>
+      <div>It may show up in the business idea they keep postponing.</div>
+      <div>It may show up in the body that never quite gets enough rest.</div>
+    </div>
+
+    <div class="pad litany refrain" style="padding-top:26px; padding-bottom:4px;">
+      <div>The cost did not disappear.</div>
+      <div class="gold-text">It moved.</div>
+      <div>It moved from the policy into the person.</div>
+      <div>It moved from the organization into the household.</div>
+      <div>It moved from the spreadsheet into the nervous system.</div>
+    </div>
+
+    <div class="diamond-div"><span class="r r1"></span><span class="d">&#9670;</span><span class="r r2"></span></div>
+
+    <section class="card">
+      <div class="marker">For those navigating this as individuals</div>
+      <p>This week&rsquo;s clue is an invitation to look at your own life without judgment.</p>
+      <p>Where has something been added that you keep telling yourself should not be a big deal?</p>
+      <p>Where are you spending more money, more time, more energy, or more emotional capacity than you used to?</p>
+      <p>Where have you adjusted so many times that the adjustment now feels normal?</p>
+      <div class="clue">
+        <div>That may be a clue.</div>
+        <div class="not">Not a failure.</div>
+        <div class="gold-text">A clue.</div>
+      </div>
+    </section>
+
+    <div class="diamond-div"><span class="r r1"></span><span class="d">&#9670;</span><span class="r r2"></span></div>
+
+    <section class="card">
+      <div class="marker">For those leading teams or organizations</div>
+      <div class="stmts">
+        <div>Every policy has an implementation cost.</div>
+        <div>Every restructuring has a human cost.</div>
+        <div>Every efficiency decision changes where capacity is spent.</div>
+      </div>
+      <div style="margin-top:22px;">
+        <p>The question is not whether organizations should ever make hard decisions. They will. They have to.</p>
+        <p>The better question is whether the decision accounts for the people who will carry the operational weight of making it work.</p>
+        <p>Because when that weight is invisible, you may think the change was successful simply because people complied.</p>
+      </div>
+      <div class="stmts" style="font-size:20px; margin-top:22px;">
+        <div>But compliance is not the same as capacity.</div>
+        <div>Attendance is not the same as engagement.</div>
+        <div>Output is not the same as sustainability.</div>
+        <div>And silence is not the same as the absence of strain.</div>
+      </div>
+    </section>
+
+    <div class="diamond-div" style="padding-bottom:40px;"><span class="r r1"></span><span class="d">&#9670;</span><span class="r r2"></span></div>
+
+    <section class="pad">
+      <p>This week I am leaving you with one question &mdash; and it is for all of us:</p>
+      <h2 class="question">Where has something that looked manageable on paper become expensive in your actual life?</h2>
+      <div style="margin-top:26px;">
+        <p>That question is for employees and founders. For leaders and caregivers. For parents and workers. For anyone carrying responsibility inside systems that keep asking for more.</p>
+        <p>Because every decision reallocates capacity.</p>
+        <p>The question is whether we are willing to notice who is paying.</p>
+      </div>
+    </section>
+
+    <section class="pad" style="padding-top:40px; padding-bottom:8px;">
+      <div style="font-size:17px; margin-bottom:6px;">With care,</div>
+      <div class="sig-hand">Samone</div>
+      <div class="sig-brand">The Bandwidth Collective&trade;</div>
+    </section>
+
+    <footer>
+      <div class="site">thebandwidthcollective.com</div>
+      <div class="fine">
+        You are receiving this because you subscribed to The Bandwidth Note&trade;.<br>
+        <a href="/unsubscribe.html">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="/index.html">Visit the site</a>
+      </div>
+      <div class="copy">&copy; 2026 The Bandwidth Collective&trade;. All rights reserved.</div>
+    </footer>
+
+    <div class="bar"></div>
+  </div>
+</body>
+</html>
