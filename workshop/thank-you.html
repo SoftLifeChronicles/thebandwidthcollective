@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You're In — From Clues to Capacity™ | The Bandwidth Collective™</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ivory:#F4EEE1; --ink:#16130F; --black:#0B0A09;
+    --gold-1:#C9A449; --gold-2:#ECD28A; --gold-3:#B8862C;
+    --gold-grad:linear-gradient(120deg,#B8862C 0%,#C9A449 30%,#ECD28A 55%,#C9A449 78%,#B8862C 100%);
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--ivory);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .ph{background:rgba(184,134,44,.16);border-bottom:1px dashed var(--gold-3);padding:0 3px;font-style:italic;}
+  .topbar{background:var(--black);color:var(--ivory);text-align:center;padding:11px 16px;font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;}
+  .topbar strong{color:var(--gold-2);font-weight:600;}
+  .wrap{max-width:720px;margin:0 auto;padding:56px 22px 80px;}
+  h1,h2,h3{font-family:var(--serif);line-height:1.15;}
+  .gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .label{font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-3);margin-bottom:16px;display:block;}
+  .hero-head{text-align:center;margin-bottom:14px;}
+  .check{width:64px;height:64px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;box-shadow:0 0 0 10px rgba(236,210,138,.15);}
+  .check::after{content:"";width:16px;height:28px;border:solid var(--black);border-width:0 4px 4px 0;transform:rotate(45deg);margin-top:-6px;}
+  h1{font-size:clamp(2rem,5vw,2.9rem);margin-bottom:10px;}
+  .sub{text-align:center;color:rgba(22,19,15,.72);max-width:560px;margin:0 auto 44px;font-size:1.05rem;}
+  .step{background:#fff;border:1px solid rgba(22,19,15,.1);border-radius:8px;padding:30px 28px;margin-bottom:22px;}
+  .step.primary{border:2px solid var(--gold-1);box-shadow:0 24px 60px -34px rgba(184,134,44,.6);}
+  .step-num{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);margin-bottom:10px;}
+  .step h2{font-size:1.5rem;margin-bottom:8px;}
+  .step p{color:rgba(22,19,15,.75);font-size:.98rem;margin-bottom:18px;}
+  .btn{display:inline-block;font-family:var(--sans);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:13.5px;padding:15px 32px;border-radius:2px;text-decoration:none;transition:transform .16s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-gold{background:var(--gold-grad);color:var(--black);box-shadow:0 10px 26px -12px rgba(184,134,44,.7);}
+  .btn-ink{background:var(--ink);color:var(--ivory);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid rgba(22,19,15,.35);}
+  .divider{display:flex;align-items:center;gap:14px;margin:38px 0 24px;color:var(--gold-3);}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:rgba(184,134,44,.3);}
+  .divider span{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;}
+  .item{border:1px solid rgba(22,19,15,.1);border-left:3px solid var(--gold-1);border-radius:4px;padding:20px 22px;margin-bottom:14px;background:#fff;}
+  .item h3{font-size:1.15rem;margin-bottom:6px;}
+  .item p{font-size:.92rem;color:rgba(22,19,15,.7);margin-bottom:14px;}
+  .item .btn{padding:12px 26px;font-size:12.5px;}
+  .note{background:rgba(201,164,73,.08);border-radius:6px;padding:16px 20px;font-size:.9rem;color:rgba(22,19,15,.72);margin-top:26px;text-align:center;}
+  .reassure{text-align:center;font-size:.9rem;color:rgba(22,19,15,.6);margin-top:10px;}
+  footer{background:var(--black);color:rgba(244,238,225,.55);text-align:center;padding:34px 20px;font-size:12px;letter-spacing:.06em;}
+  footer .tm{color:var(--gold-2);font-family:var(--serif);font-size:.95rem;display:block;margin-bottom:6px;}
+  footer a{color:var(--gold-2);text-decoration:none;}
+  .hidden{display:none;}
+</style>
+</head>
+<body>
+<div class="topbar">You're In · <strong>From Clues to Capacity™</strong> · July 18 · 9AM CST (US) · 3PM Portugal · 9PM Thailand</div>
+
+<div class="wrap">
+  <div class="hero-head">
+    <div class="check" aria-hidden="true"></div>
+    <span class="label">Welcome to the Collective</span>
+    <h1>You're in. <span class="gold-text">One quick step</span> to lock your seat.</h1>
+  </div>
+  <p class="sub" id="sub-line">Your spot is almost secured. Register for the live workshop below — that's how your Zoom link gets to you — then grab what you purchased.</p>
+
+  <!-- STEP 1 — REGISTER (everyone) -->
+  <div class="step primary">
+    <span class="step-num">Step 1 · Do this first</span>
+    <h2>Register for the live workshop</h2>
+    <p>One quick step to lock your seat for July 18 (9:00–11:00 AM CST): register your email and your Zoom link plus an add-to-calendar appear right away. <strong>Everyone must complete this step</strong> — it's how you get in the room.</p>
+    <a class="btn btn-gold" href="register.html">Register &amp; Get My Zoom Link →</a>
+    <p class="reassure">Takes 10 seconds — your Zoom link and calendar invite show up immediately.</p>
+  </div>
+
+  <!-- STEP 2 — ACCESS PURCHASE -->
+  <div id="purchase-wrap">
+    <div class="divider"><span>Step 2 · Your Purchase</span></div>
+
+    <!-- BOOK -->
+    <div class="item tier tier-bundle tier-system-book tier-book">
+      <h3>📘 Your book — <em>Overwhelm Leaves Clues</em></h3>
+      <p>Your copy is ready. Start with Chapter 1 before July 18.</p>
+      <a class="btn btn-ink" href="https://overwhelm-leaves-clues-ebook.netlify.app/thank-you.html">Access the Book</a>
+    </div>
+
+    <!-- SYSTEM -->
+    <div class="item tier tier-bundle tier-system-book">
+      <h3>🧭 The From Clues to Capacity™ System</h3>
+      <p>Your full diagnostic system. <strong>Complete it before the workshop</strong> so your live session goes straight to your real results.</p>
+      <a class="btn btn-ink" href="https://soft-life-chronicles.netlify.app/overwhelm-reset.html">Open the System</a>
+    </div>
+
+    <!-- CALL (bundle only) -->
+    <div class="item tier tier-bundle">
+      <h3>📞 Your 1:1 call with Samone</h3>
+      <p>Book your private call. Come having completed your System — we'll go straight to your reallocation plan.</p>
+      <a class="btn btn-ink" href="https://calendar.app.google/UPkDCc2MFJ8vLJGb6">Book My Call</a>
+    </div>
+
+    <!-- FREE -->
+    <div class="item tier tier-free hidden">
+      <h3>🎟️ Your free seat is set</h3>
+      <p>Nothing to buy — just finish Step 1 above and show up on July 18. Want more? You can add the book or System anytime.</p>
+      <a class="btn btn-ghost" href="index.html#choose">See the Options</a>
+    </div>
+  </div>
+
+  <div class="note">
+    Questions or didn't get your Zoom link? Email <a href="mailto:samone@thebandwidthcollective.com" style="color:var(--gold-3);font-weight:600;">samone@thebandwidthcollective.com</a> and we'll take care of you.
+  </div>
+</div>
+
+<footer>
+  <span class="tm">The Bandwidth Collective™</span>
+  Diagnose. Stabilize. Reallocate. · © 2026 The Bandwidth Collective™
+</footer>
+
+<script>
+  // Tier-aware display. Success URLs pass ?tier=bundle | system-book | book | free
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var tier = (params.get('tier')||'').toLowerCase().trim();
+    var known = ['bundle','system-book','book','free'];
+    if(known.indexOf(tier) === -1){ return; } // unknown/no param -> show everything (default)
+    // hide all tier items, then reveal only those matching this tier
+    document.querySelectorAll('#purchase-wrap .tier').forEach(function(el){ el.classList.add('hidden'); });
+    document.querySelectorAll('#purchase-wrap .tier-'+tier).forEach(function(el){ el.classList.remove('hidden'); });
+    // tailor the subheading
+    var sub = document.getElementById('sub-line');
+    if(tier==='free'){
+      sub.textContent = "Your free seat is reserved. Complete Step 1 below to get your Zoom link — that's all you need to do.";
+    } else {
+      sub.textContent = "Payment received — thank you. Reg

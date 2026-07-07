@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Save Your Free Seat — From Clues to Capacity™ | The Bandwidth Collective™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ivory:#F4EEE1; --ink:#16130F; --black:#0B0A09;
+    --gold-1:#C9A449; --gold-2:#ECD28A; --gold-3:#B8862C;
+    --gold-grad:linear-gradient(120deg,#B8862C 0%,#C9A449 30%,#ECD28A 55%,#C9A449 78%,#B8862C 100%);
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--ivory);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .ph{background:rgba(184,134,44,.16);border-bottom:1px dashed var(--gold-3);padding:0 3px;font-style:italic;}
+  .topbar{background:var(--black);color:var(--ivory);text-align:center;padding:11px 16px;font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;}
+  .topbar strong{color:var(--gold-2);font-weight:600;}
+  .wrap{max-width:600px;margin:0 auto;padding:56px 22px 80px;}
+  h1,h2,h3{font-family:var(--serif);line-height:1.15;}
+  .gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .label{font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-3);margin-bottom:16px;display:block;text-align:center;}
+  h1{font-size:clamp(2rem,5vw,2.8rem);text-align:center;margin-bottom:12px;}
+  .sub{text-align:center;color:rgba(22,19,15,.72);margin:0 auto 34px;font-size:1.05rem;}
+  .card{background:#fff;border:1px solid rgba(22,19,15,.1);border-radius:10px;padding:34px 30px;box-shadow:0 24px 60px -34px rgba(0,0,0,.3);}
+  .card.primary{border:2px solid var(--gold-1);box-shadow:0 26px 64px -34px rgba(184,134,44,.55);}
+  label.field{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,19,15,.7);margin-bottom:8px;}
+  input[type=email],input[type=text]{width:100%;padding:15px 16px;border:1px solid rgba(22,19,15,.25);border-radius:4px;font-family:var(--sans);font-size:1rem;margin-bottom:18px;}
+  input:focus{outline:none;border-color:var(--gold-1);}
+  .btn{display:inline-block;width:100%;text-align:center;font-family:var(--sans);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:14px;padding:16px 28px;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:transform .16s ease;}
+  .btn-gold{background:var(--gold-grad);color:var(--black);box-shadow:0 10px 26px -12px rgba(184,134,44,.7);}
+  .btn-gold:hover{transform:translateY(-2px);}
+  .fine{text-align:center;font-size:12px;color:rgba(22,19,15,.5);margin-top:14px;}
+  /* confirmation */
+  #confirm{display:none;text-align:center;}
+  .check{width:64px;height:64px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 0 10px rgba(236,210,138,.15);}
+  .check::after{content:"";width:16px;height:28px;border:solid var(--black);border-width:0 4px 4px 0;transform:rotate(45deg);margin-top:-6px;}
+  .zoom-btn{margin:22px 0 26px;}
+  .cal-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+  .cal-btn{flex:1;min-width:180px;display:inline-block;text-align:center;font-family:var(--sans);font-weight:600;letter-spacing:.06em;font-size:13px;padding:13px 18px;border-radius:2px;text-decoration:none;background:var(--ink);color:var(--ivory);}
+  .cal-btn.ghost{background:transparent;color:var(--ink);border:1px solid rgba(22,19,15,.35);}
+  .upsell{text-align:center;margin-top:30px;font-size:.92rem;color:rgba(22,19,15,.7);}
+  .upsell a{color:var(--gold-3);font-weight:600;}
+  footer{background:var(--black);color:rgba(244,238,225,.55);text-align:center;padding:34px 20px;font-size:12px;letter-spacing:.06em;margin-top:20px;}
+  footer .tm{color:var(--gold-2);font-family:var(--serif);font-size:.95rem;display:block;margin-bottom:6px;}
+</style>
+</head>
+<body>
+<div class="topbar">Free to Attend · <strong>From Clues to Capacity™</strong> · July 18 · 9AM CST (US) · 3PM Portugal · 9PM Thailand</div>
+
+<div class="wrap">
+  <span class="label">Welcome to the Collective</span>
+  <h1>Save your <span class="gold-text">free seat</span></h1>
+  <p class="sub">Enter your email and your Zoom link appears right here — then add it to your calendar so you don't miss it.<br><strong>July 18 · 9:00–11:00 AM CST (US) · 3:00–5:00 PM Portugal · 9:00–11:00 PM Thailand</strong></p>
+
+  <!-- FORM -->
+  <div class="card primary" id="form-card">
+    <form name="workshop-register" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="reg-form">
+      <input type="hidden" name="form-name" value="workshop-register" />
+      <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+      <label class="field" for="name">First name</label>
+      <input id="name" name="name" type="text" placeholder="First name" autocomplete="given-name" />
+      <label class="field" for="email">Email address</label>
+      <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+      <button class="btn btn-gold" type="submit">Get My Zoom Link →</button>
+      <p class="fine">Free to attend · No credit card required · Unsubscribe anytime</p>
+    </form>
+  </div>
+
+  <!-- CONFIRMATION (revealed after submit) -->
+  <div class="card" id="confirm">
+    <div class="check" aria-hidden="true"></div>
+    <span class="label">You're registered</span>
+    <h2 style="font-size:1.7rem;margin-bottom:8px;">Your seat is saved.</h2>
+    <p style="color:rgba(22,19,15,.72);">Here's your Zoom link for July 18 — and save it to your calendar so it's waiting for you.</p>
+    <div class="zoom-btn">
+      <a class="btn btn-gold" id="zoom-link" href="https://us06web.zoom.us/j/83325512257?pwd=wxS9R0QEn5pvWzO7cVg2K1IxPAXmIm.1" target="_blank" rel="noopener">Join on Zoom (July 18) →</a>
+    </div>
+    <div class="cal-row">
+      <a class="cal-btn" id="gcal" href="#" target="_blank" rel="noopener">+ Google Calendar</a>
+      <a class="cal-btn ghost" id="ics" href="#" download="from-clues-to-capacity.ics">+ Apple / Outlook (.ics)</a>
+    </div>
+    <p class="upsell">Want to go deeper than the workshop? <a href="index.html#choose">See the book, the System, and a 1:1 with Samone →</a></p>
+  </div>
+</div>
+
+<footer>
+  <span class="tm">The Bandwidth Collective™</span>
+  Diagnose. Stabilize. Reallocate. · © 2026 The Bandwidth Collective™
+</footer>
+
+<script>
+  // --- Event details (July 18, 2026, 9:00–11:00 AM Central = 14:00–16:00 UTC) ---
+  var EV = {
+    title: "From Clues to Capacity - Live Workshop",
+    start: "20260718T140000Z",
+    end:   "20260718T160000Z",
+    zoom:  document.getElementById('zoom-link').getAttribute('href'),
+    details: "Your live From Clues to Capacity workshop with The Bandwidth Collective. Join link is in this invite."
+  };
+
+  // Google Calendar
+  var g = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent(EV.title)
+    + "&dates=" + EV.start + "/" + EV.end
+    + "&details=" + encodeURIComponent(EV.details + "\nZoom: " + EV.zoom)
+    + "&location=" + encodeURIComponent("Zoom");
+  document.getElementById('gcal').setAttribute('href', g);
+
+  // .ics download
+  var ics = [
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//The Bandwidth Collective//Workshop//EN",
+    "BEGIN:VEVENT","UID:fctc-2026-07-18@thebandwidthcollective.com",
+    "DTSTAMP:20260705T000000Z","DTSTART:"+EV.start,"DTEND:"+EV.end,
+    "SUMMARY:"+EV.title,
+    "DESCRIPTION:"+EV.details+" Zoom: "+EV.zoom,
+    "LOCATION:Zoom","END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+  var blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
+  document.getElementById('ics').setAttribute('href', URL.createObjectURL(blob));
+
+  // --- Form submit: capture email to Netlify, then reveal confirmation on-page ---
+  var form = document.getElementById('reg-form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new URLSearchParams(new FormData(form)).toString();
+    // best-effort POST to Netlify (works on the live site); reveal regardless so preview works
+    fetch("/", {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:data})
+      .catch(function(){})
+      .finally(function(){
+        document.getElementById('form-card').style.display = 'none';
+        var c = document.getElementById('confirm');
+        c.style.display = 'block';
+        c.scrollIntoView({behavior:'smooth', block:'ce
