@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Clues to Capacity™ — Where to Start · The Bandwidth Collective™</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#D4AF37;--gold-light:#F0DFA0;--gold-soft:#C2B280;--dark:#0D0D0D;--cream:#FAF7F2;}
+body{font-family:'Jost',sans-serif;background:var(--dark);color:var(--cream);min-height:100vh;font-weight:300;line-height:1.7;}
+/* Subtle warm ambient glow */
+.page-glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 12%,rgba(212,175,55,0.05) 0%,transparent 60%);}
+.container{max-width:1040px;margin:0 auto;padding:2.75rem 1.5rem 2rem;position:relative;z-index:1;}
+/* HERO — left aligned */
+.hero{max-width:760px;margin-bottom:2rem;}
+.brand-name{font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.5rem;}
+.diamond{width:10px;height:10px;transform:rotate(45deg);border:1px solid rgba(212,175,55,0.4);margin:1rem 0;position:relative;}
+.diamond::after{content:'';position:absolute;top:3px;left:3px;width:3px;height:3px;background:rgba(212,175,55,0.5);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:400;line-height:1.12;color:var(--cream);margin-bottom:0.35rem;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.subtitle{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,3vw,1.3rem);color:var(--gold-light);}
+.rule{width:50px;height:1px;background:var(--gold);margin:1.25rem 0;}
+.tagline{margin-bottom:1rem;}
+.tagline p{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;}
+.tagline .gold{color:var(--gold-light);}
+.intro p{font-size:0.9rem;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:0.75rem;}
+.intro p:last-child{margin-bottom:0;}
+/* TOOLS ROW — 3 cards on desktop */
+.tools-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem;}
+.step-card{background:rgba(255,255,255,0.025);border:1px solid rgba(212,175,55,0.15);border-radius:6px;padding:1.5rem 1.4rem;transition:border-color 0.3s,background 0.3s;display:flex;flex-direction:column;}
+.step-card:hover{border-color:rgba(212,175,55,0.35);background:rgba(212,175,55,0.03);}
+.step-number{font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.6rem;}
+.step-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--cream);font-weight:400;margin-bottom:0.3rem;}
+.step-label{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-soft);font-weight:500;margin-bottom:0.65rem;}
+.step-desc{flex:1;font-size:0.85rem;color:rgba(255,255,255,0.5);margin-bottom:1.25rem;line-height:1.65;}
+.step-link{align-self:flex-start;background:var(--gold-soft);color:var(--dark);font-family:'Jost',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;padding:0.7rem 1.5rem;border-radius:2px;transition:opacity 0.2s,transform 0.1s;}
+.step-link:hover{opacity:0.9;}
+.step-link:active{transform:scale(0.98);}
+/* HOW SECTION */
+.how-section{max-width:760px;margin:1rem 0 2.5rem;padding:1.75rem;border:1px solid rgba(212,175,55,0.1);border-radius:6px;background:rgba(212,175,55,0.02);}
+.how-title{font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.75rem;}
+.how-section p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.7;}
+.how-section .checklist{margin-top:0.5rem;}
+.how-section .checklist-item{margin-bottom:1rem;font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.7;}
+.how-section .checklist-item:last-child{margin-bottom:0;}
+.how-section .checklist-item strong{color:var(--gold-soft);font-weight:500;}
+/* FOOTER — centered */
+.footer{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(212,175,55,0.1);}
+.footer-brand{font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(212,175,55,0.3);font-weight:500;margin-bottom:0.5rem;}
+.footer-url{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:0.25rem;}
+.footer-url a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(212,175,55,0.3);}
+.footer-url a:hover{border-bottom-color:var(--gold);}
+.footer-email{font-size:0.72rem;color:rgba(255,255,255,0.25);}
+.footer-tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:0.85rem;color:rgba(240,223,160,0.4);margin-top:1rem;}
+.footer .diamond{margin:1.5rem auto 0;}
+/* RESPONSIVE */
+@media(max-width:820px){.tools-row{grid-template-columns:1fr;gap:1rem;}}
+@media(max-width:480px){.container{padding:2rem 1.25rem 1.5rem;}.step-card{padding:1.25rem;}}
+</style>
+</head>
+<body>
+<div class="page-glow"></div>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="brand-name">The Bandwidth Collective™</p>
+    <div class="diamond"></div>
+    <h1>From Clues to <em>Capacity</em>™</h1>
+    <p class="subtitle">Where to Start</p>
+    <div class="rule"></div>
+
+    <div class="tagline">
+      <p>You are not broken. You are overwhelmed. <span class="gold">Let us help you find clarity.</span></p>
+    </div>
+
+    <div class="intro">
+      <p>From Clues to Capacity™ is a structured self-assessment experience rooted in systems thinking, behavioral pattern recognition, and decision-support methodology. Using three proprietary AI-guided tools from The Bandwidth Collective™, you will identify which life systems are creating the greatest strain and determine where intervention can create the most meaningful relief.</p>
+      <p>When the Bandwidth Tax™ is active, you may not be starting with your full capacity. These tools help you follow the clues, see where capacity is being drained, and choose where to stabilize first.</p>
+    </div>
+  </div>
+
+  <!-- TOOLS ROW -->
+  <div class="tools-row">
+    <div class="step-card">
+      <p class="step-number">Step 1</p>
+      <p class="step-title">The Bandwidth Compass™</p>
+      <p class="step-label">An Honest Diagnosis</p>
+      <p class="step-desc">Assess which of your four core life systems — Money, Time, Well-being, or Environment — is contributing most to your current overwhelm.</p>
+      <a class="step-link" href="clarity-compass.html" target="_blank">Find My Starting Point</a>
+    </div>
+    <div class="step-card">
+      <p class="step-number">Step 2</p>
+      <p class="step-title">The Bandwidth Reset™</p>
+      <p class="step-label">One Clear Decision</p>
+      <p class="step-desc">Use guided decision support to choose one stabilizing action that can reduce pressure, protect capacity, and create immediate breathing room.</p>
+      <a class="step-link" href="one-decision-reset.html" target="_blank">Start My Reset</a>
+    </div>
+    <div class="step-card">
+      <p class="step-number">Step 3</p>
+      <p class="step-title">The Bandwidth Audit™</p>
+      <p class="step-label">Your Personal Analysis</p>
+      <p class="step-desc">Generate a downloadable personalized report that identifies recurring patterns, root causes, and the hidden pressures affecting your day-to-day capacity.</p>
+      <a class="step-link" href="bandwidth-audit.html" target="_blank">Begin My Audit</a>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <p class="how-title">Before You Begin</p>
+    <p>Set aside at least one uninterrupted hour to move through the process with care. The value comes from accurate input, honest reflection, and giving yourself space to understand what the data reveals.</p>
+
+    <div class="checklist">
+      <p class="how-title" style="margin-top:1.25rem">What You Will Create and Receive</p>
+
+      <div class="checklist-item">✅ <strong>An Honest Diagnosis — The Bandwidth Compass™</strong><br>Assess which of your four core life systems — Money, Time, Well-being, or Environment — is contributing most to your current overwhelm.</div>
+
+      <div class="checklist-item">✅ <strong>One Clear Decision — The Bandwidth Reset™</strong><br>Choose one stabilizing action that can reduce pressure, protect capacity, and create immediate breathing room.</div>
+
+      <div class="checklist-item">✅ <strong>Your Personal Analysis — The Bandwidth Audit™</strong><br>Generate a downloadable personalized report that identifies recurring patterns, root causes, and the hidden pressures affecting your day-to-day capacity.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p class="footer-brand">The Bandwidth Collective™</p>
+    <p class="footer-url"><a href="https://stan.store/SoftLifeChronicles" target="_blank">Visit the Store</a></p>
+    <p class="footer-email">samone@thebandwidthcollective.com</p>
+    <p class="footer-tagline">"Let's build clarity where it matters most."</p>
+    <div class="diamond" style="margin:1.5rem auto 0"></div>
+  </div>
+
+</div>
+</body>
+</html>
