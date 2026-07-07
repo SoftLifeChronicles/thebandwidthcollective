@@ -1,1 +1,12 @@
-/one-question   https://soft-life-onequestion.netlify.app/   302
+™—/one-question   https://soft-life-onequestion.netlify.app/   302
+# From Clues to Capacity - friendly public product URLs
+/from-clues-to-capacity    /overwhelm-reset.html      200
+/bandwidth-compass         /clarity-compass.html      200
+/bandwidth-reset           /one-decision-reset.html   200
+/bandwidth-audit           /bandwidth-audit.html      200
+
+# Tool file URLs redirect to friendly product URLs
+/overwhelm-reset.html      /from-clues-to-capacity    301!
+/clarity-compass.html      /bandwidth-compass         301!
+/one-decision-reset.html   /bandwidth-reset           301!
+/bandwidth-audit.html      /bandwidth-audit           301!
