@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bandwidth Audit™ — The Bandwidth Collective™</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F0DFA0;
+  --gold-soft: #C2B280;
+  --dark: #0D0D0D;
+  --charcoal: #1A1A18;
+  --cream: #FAF7F2;
+  --text: #3A3A36;
+  --muted: #7A7A70;
+  --white: #FFFFFF;
+}
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  min-height: 100vh;
+  font-weight: 300;
+  line-height: 1.7;
+}
+/* SCREENS */
+.screen { display: none; min-height: 100vh; padding: 2rem 1.5rem; max-width: 680px; margin: 0 auto; }
+.screen.active { display: flex; flex-direction: column; justify-content: center; }
+/* WELCOME SCREEN */
+.welcome-eyebrow { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.welcome-h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 400; line-height: 1.15; margin-bottom: 0.5rem; }
+.welcome-h1 em { font-style: italic; color: var(--gold-light); }
+.gold-rule { width: 50px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+.welcome-sub { font-size: 0.95rem; color: rgba(255,255,255,0.65); max-width: 480px; margin-bottom: 2rem; line-height: 1.8; }
+.pillars-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 1.5rem 0 2rem; }
+.pillar-chip { background: transparent; border: 1px solid rgba(212,175,55,0.35); border-radius: 4px; padding: 0.75rem 1rem; }
+.pillar-chip-name { font-size: 0.8rem; font-weight: 500; color: var(--gold-soft); margin-bottom: 0.2rem; }
+.pillar-chip-desc { font-size: 0.75rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+/* QUESTION SCREEN */
+.progress-bar { height: 2px; background: rgba(212,175,55,0.15); border-radius: 2px; margin-bottom: 2.5rem; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s ease; }
+.q-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+.q-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 400; color: var(--white); margin-bottom: 0.75rem; line-height: 1.3; }
+.q-context { font-size: 0.88rem; color: rgba(255,255,255,0.5); font-style: italic; margin-bottom: 1.5rem; line-height: 1.7; max-width: 520px; }
+.q-prompt { font-size: 0.95rem; color: rgba(255,255,255,0.85); margin-bottom: 1rem; }
+textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.7;
+  resize: none;
+  min-height: 130px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+textarea::placeholder { color: rgba(255,255,255,0.25); }
+textarea:focus { border-color: var(--gold); background: rgba(212,175,55,0.04); }
+.char-hint { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 0.4rem; }
+/* BUTTONS */
+.btn-primary {
+  background: var(--gold-soft);
+  color: var(--dark);
+  border: none;
+  padding: 0.85rem 2.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  margin-top: 1.5rem;
+}
+.btn-primary:hover { opacity: 0.9; }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  border: none;
+  padding: 0.5rem 0;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: color 0.2s;
+}
+.btn-secondary:hover { color: rgba(255,255,255,0.7); }
+/* LOADING */
+.loading-screen { text-align: center; }
+.loading-orb { width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(212,175,55,0.2); border-top-color: var(--gold); animation: spin 1s linear infinite; margin: 0 auto 2rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; font-style: italic; }
+.loading-sub { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+/* RESULTS */
+.results-header { margin-bottom: 2rem; }
+.results-badge { display: inline-block; background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.3); color: var(--gold); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 1.25rem; }
+.results-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 400; color: var(--white); margin-bottom: 0.5rem; }
+.results-sub { font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+.summary-section { margin-bottom: 1.5rem; border-left: 2px solid rgba(212,175,55,0.3); padding-left: 1.25rem; }
+.summary-section-label { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; font-weight: 500; }
+.summary-section-content { font-size: 0.98rem; color: rgba(255,255,255,0.85); line-height: 1.9; }
+.summary-section-content p { margin: 0 0 0.7rem; }
+.summary-section-content p:last-child { margin-bottom: 0; }
+.summary-section-content strong { color: var(--gold-light); font-weight: 500; }
+.summary-section-content ul { margin: 0.5rem 0 0.7rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.summary-section-content li { position: relative; padding-left: 1.1rem; }
+.summary-section-content li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.summary-section.highlight { border-left-color: var(--gold); }
+.summary-section.highlight .summary-section-content { color: var(--cream); }
+.summary-section.clinical { border-left-color: rgba(212,175,55,0.5); }
+.summary-section.clinical .summary-section-content { color: rgba(255,255,255,0.72); }
+.handoff-welcome { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--gold-light); line-height: 1.6; text-align: center; max-width: 32em; margin: 0 auto 1.75rem; }
+.clinical-block { border: 1px solid rgba(212,175,55,0.25); border-radius: 8px; padding: 1.5rem 1.5rem 0.5rem; margin-bottom: 1.75rem; background: rgba(255,255,255,0.02); }
+.clinical-heading { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-soft); font-weight: 500; margin: 0 0 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(212,175,55,0.18); }
+.handoff-line { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--cream); text-align: center; margin: 0 0 1.5rem; }
+.cal-btn { margin-top: 1.1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; border: 1px solid rgba(212,175,55,0.45); color: var(--gold-light); font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.7rem 1.3rem; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+.cal-btn:hover { border-color: var(--gold); background: rgba(212,175,55,0.08); }
+.cal-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.1rem; }
+.cal-btns .cal-btn { margin-top: 0; }
+.cal-hint { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; line-height: 1.5; }
+.bw-dash { margin-bottom: 0.25rem; }
+.bw-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+.bw-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.bw-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.bw-rows { display: flex; flex-direction: column; gap: 9px; }
+.bw-row { display: flex; align-items: center; gap: 11px; }
+.bw-row .bw-sys { font-size: 0.95rem; color: var(--cream); }
+.bw-row .bw-stat { margin-left: auto; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; }
+/* SAVE ACTIONS */
+.save-actions {
+  display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-top: 2rem;
+  padding-top: 1.5rem; border-top: 1px solid rgba(212,175,55,0.1);
+}
+.btn-download {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: transparent; color: var(--gold-soft); border: none;
+  padding: 0; font-family: 'Jost', sans-serif;
+  font-size: 0.78rem; font-weight: 400; letter-spacing: 0.05em;
+  text-decoration: underline; text-underline-offset: 3px;
+  cursor: pointer; transition: color 0.2s;
+}
+.btn-download:hover { color: var(--gold); }
+.btn-download:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-download .icon { font-size: 0.85rem; text-decoration: none; }
+.download-status { font-size: 0.75rem; color: var(--gold); display: none; margin-top: 0.5rem; }
+/* ═══════════════ UPGRADE CTA ═══════════════ */
+.sit-with-it { max-width: 460px; margin: 2.5rem auto 0; padding-top: 1.75rem; border-top: 1px solid rgba(212,175,55,0.15); text-align: center; }
+.sit-with-it p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--gold-light); line-height: 1.65; margin: 0; }
+.cta-section { background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px; padding: 2.25rem 1.75rem; margin-top: 2.5rem; text-align: center; }
+.cta-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.85rem; }
+.cta-acknowledgment { font-size: 0.85rem; color: rgba(240,223,160,0.85); font-style: italic; line-height: 1.7; margin-bottom: 1.25rem; max-width: 460px; margin-left: auto; margin-right: auto; }
+.cta-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin-bottom: 0.75rem; line-height: 1.3; }
+.cta-body { font-size: 0.9rem; color: rgba(255,255,255,0.6); max-width: 460px; margin: 0 auto 1.25rem; line-height: 1.85; text-align: left; }
+.cta-body p { margin-bottom: 0.85rem; }
+.cta-body p:last-child { margin-bottom: 0; }
+.cta-body strong { color: var(--gold-light); font-weight: 400; }
+/* ═══════════════ CREDIT BLOCK ═══════════════ */
+.credit-block { background: rgba(212,175,55,0.07); border: 1px solid rgba(212,175,55,0.3); border-radius: 6px; padding: 1.25rem 1.5rem; margin: 1.5rem auto; max-width: 400px; }
+.credit-intro { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 0.85rem; text-align: center; font-style: italic; }
+.credit-line { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.85rem; color: rgba(255,255,255,0.6); padding: 0.3rem 0; }
+.credit-line.total { border-top: 1px solid rgba(212,175,55,0.25); margin-top: 0.4rem; padding-top: 0.65rem; color: var(--gold-light); font-weight: 500; font-size: 0.92rem; }
+.credit-line .label { letter-spacing: 0.04em; }
+.credit-line .amount { font-family: 'Playfair Display', serif; font-size: 0.98rem; }
+.credit-line.total .amount { font-size: 1.08rem; color: var(--gold-light); }
+.credit-note { font-size: 0.72rem; color: rgba(255,255,255,0.35); text-align: center; margin-top: 0.65rem; line-height: 1.55; }
+.btn-cta { display: inline-block; background: var(--gold-soft); color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 1rem 2.25rem; border-radius: 2px; text-decoration: none; transition: opacity 0.2s; margin-top: 0.5rem; }
+.btn-cta:hover { opacity: 0.9; }
+.secondary-cta { margin-top: 1.5rem; display: block; font-size: 0.8rem; color: rgba(255,255,255,0.5); text-decoration: underline; text-decoration-color: rgba(212,175,55,0.3); text-underline-offset: 4px; line-height: 1.7; max-width: 460px; margin-left: auto; margin-right: auto; background: none; border: none; font-family: 'Jost', sans-serif; cursor: pointer; padding: 0; }
+.secondary-cta:hover { color: var(--gold-light); text-decoration-color: var(--gold); }
+.privacy-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(212,175,55,0.15); font-size: 0.74rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 460px; margin-left: auto; margin-right: auto; }
+.privacy-note strong { color: var(--gold-light); font-weight: 400; }
+.restart-btn { display: block; text-align: center; margin-top: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.3); cursor: pointer; background: none; border: none; font-family: 'Jost', sans-serif; }
+.restart-btn:hover { color: rgba(255,255,255,0.6); }
+.footer-mark { text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.2); margin-top: 3rem; letter-spacing: 0.1em; }
+/* ERROR */
+.error-box { background: rgba(220,60,60,0.1); border: 1px solid rgba(220,60,60,0.3); border-radius: 4px; padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.85rem; color: rgba(255,180,180,0.9); text-align: center; }
+@media(max-width:500px){
+  .pillars-row { grid-template-columns: 1fr; }
+  .save-actions { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+<!-- WELCOME -->
+<div id="welcome" class="screen active">
+  <div>
+    <p class="welcome-eyebrow">The Bandwidth Collective™ Presents</p>
+    <h1 class="welcome-h1">Welcome to<br><em>The Bandwidth Audit™</em></h1>
+    <div class="gold-rule"></div>
+    <p class="welcome-sub" style="color:var(--gold-light);font-style:italic;margin-bottom:1rem">The deeper you look, the more the clues connect. This is where the patterns behind the strain become clear — not to judge, but to understand.</p>
+    <p class="welcome-sub">This is the full MRI. Just like a mechanic plugs your car into a machine to read trouble codes, The Bandwidth Audit™ analyzes your life's 'live data' to pinpoint the exact source of your system overload. We find the specific 'short circuit' so you can fix it—without taking your whole life apart.</p>
+    <p class="welcome-sub" style="font-style:italic; color:rgba(240,223,160,0.75); border-left:2px solid rgba(212,175,55,0.4); padding-left:1rem; max-width:480px;">This isn't about vague 'energy drains'; it's about finding the root cause behind why you can't consistently show up, make clear decisions, or be fully present.</p>
+    <div class="pillars-row">
+      <div class="pillar-chip">
+        <p class="pillar-chip-name">Money</p>
+        <p class="pillar-chip-desc">Financial stability and the margin to make real choices</p>
+      </div>
+      <div class="pillar-chip">
+        <p class="pillar-chip-name">Time</p>
+        <p class="pillar-chip-desc">Control over your schedule, energy, and daily capacity</p>
+      </div>
+      <div class="pillar-chip">
+        <p class="pillar-chip-name">Well-being</p>
+        <p class="pillar-chip-desc">Energy, clarity, peace of mind, and freedom from chronic stress</p>
+      </div>
+      <div class="pillar-chip">
+        <p class="pillar-chip-name">Environment</p>
+        <p class="pillar-chip-desc">Where you live and whether it supports or drains you</p>
+      </div>
+    </div>
+    <a href="#" style="font-size:0.82rem; color:var(--gold-soft); text-decoration:underline; display:block; margin-bottom:1rem;">Your Data & Privacy</a>
+    <button class="btn-primary" onclick="startAssessment()">Begin My Audit</button>
+  </div>
+  <p class="footer-mark">© The Bandwidth Collective™ — The Bandwidth Audit™ is a trademark of Samone Davis.<br>All rights reserved.</p>
+</div>
+<!-- SESSION RESUME BANNER -->
+<div id="resumeBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:linear-gradient(135deg,rgba(13,13,13,0.97),rgba(26,26,24,0.97));border-bottom:1px solid rgba(212,175,55,0.25);padding:1.25rem 1.5rem;backdrop-filter:blur(10px)">
+  <div style="max-width:640px;margin:0 auto">
+    <p style="font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;font-weight:500">Welcome Back</p>
+    <p id="resumeMessage" style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:0.75rem"></p>
+    <p id="resumeExpiry" style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-bottom:1rem"></p>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+      <button class="btn-primary" onclick="dismissBannerAndResume()" style="margin-top:0;font-size:0.7rem;padding:0.7rem 1.75rem">Continue Where I Left Off</button>
+      <button class="btn-secondary" onclick="dismissBannerAndRestart()" style="margin-top:0;font-size:0.7rem;padding:0.7rem 1.75rem;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:2px;letter-spacing:0.15em;text-transform:uppercase;font-family:inherit;cursor:pointer">Start Fresh</button>
+    </div>
+  </div>
+</div>
+<!-- QUESTION -->
+<div id="question" class="screen">
+  <div>
+    <p style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--gold-light); margin-bottom:0.25rem;">The Bandwidth Audit™</p>
+    <p style="font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:1.5rem;">Your Path to Clarity</p>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <p class="q-label" id="qLabel">Question 01 of 06</p>
+    <h2 class="q-title" id="qTitle"></h2>
+    <p class="q-context" id="qContext"></p>
+    <p class="q-prompt" id="qPrompt"></p>
+    <textarea id="qAnswer" placeholder="Write your answer here — short answers are completely fine..." oninput="checkAnswer()"></textarea>
+    <p class="char-hint">Be honest rather than aspirational. There are no right or wrong answers.</p>
+    <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+      <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Continue</button>
+      <button class="btn-secondary" id="backBtn" onclick="prevQuestion()" style="display:none;">← Back</button>
+    </div>
+  </div>
+</div>
+<!-- LOADING -->
+<div id="loading" class="screen loading-screen">
+  <div>
+    <div class="loading-orb"></div>
+    <p class="loading-text">Generating your Bandwidth Audit Report</p>
+    <p class="loading-sub">Analyzing your reflections across all four core life systems...</p>
+  </div>
+</div>
+<!-- RESULTS -->
+<div id="results" class="screen">
+  <div>
+    <div class="results-header" style="text-align:center">
+      <p style="font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.6rem">The Bandwidth Collective™</p>
+      <h2 class="results-title" style="margin-bottom:0.35rem">The Bandwidth Audit™</h2>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--gold-light);margin-bottom:0.85rem">Your Capacity Map</p>
+      <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 0.85rem"></div>
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.45);letter-spacing:0.04em;margin-bottom:0.25rem">A diagnostic report from the From Clues to Capacity™ system</p>
+      <p style="font-size:0.7rem;color:rgba(255,255,255,0.35);letter-spacing:0.1em">Money · Time · Well-being · Environment</p>
+    </div>
+    <div id="summaryContent"></div>
+    <!-- SAVE ACTIONS -->
+    <div class="save-actions">
+      <button class="btn-download" id="downloadPdfBtn" onclick="downloadBlueprint()">
+        <span class="icon">↓</span> Download Your Bandwidth Report (PDF)
+      </button>
+    </div>
+    <p class="download-status" id="downloadStatus"></p>
+    <div class="sit-with-it">
+      <p>Take a moment with this. Let it settle before you decide anything — there's no rush, and this is yours to sit with. When you're ready to move forward with clarity, the next part is where you don't have to do it alone.</p>
+    </div>
+    <!-- ═══════════════════ FINAL CTA — INTENSIVE OFFER ═══════════════════ -->
+    <div class="cta-section" id="intensiveOfferBlock">
+      <p class="cta-label">Ready to Go Deeper?</p>
+      <h3 class="cta-title">Turn these insights into a supported 30-day reset.</h3>
+      <div class="cta-body">
+        <p>You now have more than a feeling. You have evidence.</p>
+        <p>You can see where pressure is showing up, which systems are carrying the most weight, and where your Bandwidth Tax™ may be costing you capacity.</p>
+        <p>The Bandwidth Reallocation Experience™ — A 30-Day Private Intensive — is the next step if you want support turning these insights into a practical, personalized plan.</p>
+        <p>Together, we use what you have just uncovered to reallocate your bandwidth across Money, Time, Well-being, and Environment — so you are not just naming the pressure, you are building support around it.</p>
+      </div>
+      <!-- Credit block -->
+      <div class="credit-block">
+        <p class="credit-intro">As a thank you for trusting The Bandwidth Collective™, you can apply the full cost of this diagnostic as a credit toward The Bandwidth Reallocation Experience™.</p>
+        <div class="credit-line"><span class="label">Program Value</span><span class="amount">$997</span></div>
+        <div class="credit-line"><span class="label">Your Credit</span><span class="amount">−$47</span></div>
+        <div class="credit-line total"><span class="label">Today</span><span class="amount">$950</span></div>
+        <p class="credit-note">$950 payment plan or full payment available</p>
+      </div>
+      <a href="https://stan.store/SoftLifeChronicles/p/the-30day-life-system-reset" class="btn-cta" target="_blank">Go All In With the 30-Day Intensive</a>
+      <button type="button" class="btn-secondary" onclick="showCompletionMessage()" style="display:block;margin:1.25rem auto 0;text-align:center">
+        No thanks — I'll keep my results for now.
+      </button>
+      <p class="privacy-note">
+        <strong>A note on your privacy:</strong> Your session is saved locally in your browser for 7 days so you can return to your results. After that, it expires. Please download your Bandwidth Audit Report now so you can keep it whenever you're ready.
+      </p>
+    </div>
+    <!-- ═══════════════════ COMPLETION + COMMUNITY MESSAGE ═══════════════════ -->
+    <div id="completionMessage" class="cta-section" style="display:none">
+      <p class="cta-label" style="margin-bottom:0.75rem">Reset Complete</p>
+      <h3 class="cta-title">You now have insights and a framework.</h3>
+      <div class="cta-body">
+        <p>Thank you for completing From Clues to Capacity™.</p>
+        <p>You now have language for what has been costing you capacity, a clearer view of your Bandwidth Tax™, and a framework you can return to as you begin reallocating your bandwidth.</p>
+        <p>You do not have to change everything at once. Start with what your report has shown you. Notice where pressure is costing capacity. Use what you have learned to make your next decision with more support and less self-blame.</p>
+        <p>And you do not have to process it alone.</p>
+        <p>If you are not ready for 1:1 support yet, The Bandwidth Collective™ free community is the next best place to stay connected, keep learning, and continue building a life with more clarity, support, and alignment.</p>
+      </div>
+      <a href="https://www.skool.com/soft-life-chronicles-8712" class="btn-cta" target="_blank">Join The Bandwidth Collective™ Free Community</a>
+      <p style="font-size:0.78rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-top:1.1rem;max-width:460px;margin-left:auto;margin-right:auto">If you ever feel 1:1 support would help you turn these insights into a fuller plan, you can reach me at <a href="mailto:samone@thebandwidthcollective.com" style="color:var(--gold-light)">samone@thebandwidthcollective.com</a>.</p>
+    </div>
+    <button class="restart-btn" onclick="restart()">Start a new audit</button>
+    <p class="footer-mark">© The Bandwidth Collective™ — The Bandwidth Audit™ is a trademark of Samone Davis.<br>All rights reserved.</p>
+  </div>
+</div>
+<script>
+const questions = [
+  {
+    title: "Current Reality",
+    context: "Before you can redesign anything, you need to see clearly what you are actually working with. This is not about what you want — it is about what is true right now.",
+    prompt: "Describe your life as it actually is right now — work, energy, daily responsibilities. What feels heavy, draining, or unsustainable?"
+  },
+  {
+    title: "Repeating Friction",
+    context: "The most revealing patterns are the ones that keep coming back — even after you have tried to change things. These are worth paying close attention to.",
+    prompt: "What problems, situations, or frustrations keep resurfacing in your life — even after you try to address them?"
+  },
+  {
+    title: "Relief Signal",
+    context: "What you most want relief from is often a clearer signal about what needs to change than what you think you want to add or achieve.",
+    prompt: "If one part of your life felt lighter or easier over the next 12 months, what would you most want relief from?"
+  },
+  {
+    title: "Proven Capability",
+    context: "The things others consistently rely on you for — even things you don't think of as special — are often your most valuable assets for what comes next.",
+    prompt: "What do people consistently rely on you for — at work, in family, or in difficult situations — even if you don't think of it as particularly special?"
+  },
+  {
+    title: "Bandwidth Constraint",
+    context: "Your Bandwidth Compass has identified which life system feels the most strained. Knowing which life system is most constrained right now tells you exactly where to focus first — rather than trying to change everything at once.",
+    prompt: "Which area feels most constrained right now: money, time, well-being, or environment? Write about how these constraints show up in your day-to-day life."
+  },
+  {
+    title: "Directional Pull",
+    context: "This is not about dreaming. It is about direction. What kind of life would feel aligned with who you actually are — not who you think you should be?",
+    prompt: "If your life were more aligned, how would your days look and feel — without fundamentally changing who you are?"
+  }
+];
+let current = 0;
+let answers = [];
+let currentPhase = 'welcome';
+// ═══════════════════════════════════════════════
+// SESSION STATE — persists across page refreshes
+// ═══════════════════════════════════════════════
+const STATE_KEY = 'slc_bandwidth_audit_state';
+const STATE_TTL = 7 * 24 * 60 * 60 * 1000;
+let suppressStateSave = false;
+function saveCurrentAnswer() {
+  const answerEl = document.getElementById('qAnswer');
+
+  if (currentPhase === 'questions' && answerEl) {
+    answers[current] = answerEl.value.trim();
+  }
+}
+function saveState() {
+  if (suppressStateSave) return;
+
+  saveCurrentAnswer();
+
+  const state = {
+    phase: currentPhase,
+    currentStep: current,
+    answers: answers,
+    summaryHTML: document.getElementById('summaryContent')?.innerHTML || '',
+    timestamp: Date.now()
+  };
+  try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STATE_KEY);
+    if (!raw) return null;
+    const state = JSON.parse(raw);
+    if (!state.timestamp || Date.now() - state.timestamp > STATE_TTL) {
+      localStorage.removeItem(STATE_KEY);
+      return null;
+    }
+    return state;
+  } catch(e) { return null; }
+}
+function clearState() {
+  try { localStorage.removeItem(STATE_KEY); } catch(e) {}
+}
+function getDaysRemaining(state) {
+  const remaining = STATE_TTL - (Date.now() - state.timestamp);
+  return Math.max(0, Math.ceil(remaining / (24 * 60 * 60 * 1000)));
+}
+function getResumeMessage(state) {
+  if (state.phase === 'results') {
+    return 'Your Bandwidth Audit Report is ready. Pick up where you left off — your results are waiting.';
+  } else if (state.phase === 'questions') {
+    return `You were on Question ${(state.currentStep || 0) + 1} of 6 in your audit. Your previous answers are saved.`;
+  }
+  return '';
+}
+let pendingResumeState = null;
+function showResumeBanner(state) {
+  const banner = document.getElementById('resumeBanner');
+  const days = getDaysRemaining(state);
+  document.getElementById('resumeMessage').textContent = getResumeMessage(state);
+  document.getElementById('resumeExpiry').textContent = `Your session will expire in ${days} day${days !== 1 ? 's' : ''}. Complete your audit before then to keep your progress.`;
+  banner.style.display = 'block';
+}
+function dismissBannerAndResume() {
+  document.getElementById('resumeBanner').style.display = 'none';
+  if (pendingResumeState) restoreSession(pendingResumeState);
+}
+function dismissBannerAndRestart() {
+  document.getElementById('resumeBanner').style.display = 'none';
+  restart();
+}
+function restoreSession(state) {
+  if (!state) return;
+
+  answers = Array.isArray(state.answers) ? state.answers : [];
+  current = typeof state.currentStep === 'number' ? state.currentStep : 0;
+
+  if (state.phase === 'results' && state.summaryHTML) {
+    currentPhase = 'results';
+    showScreen('results');
+    document.getElementById('summaryContent').innerHTML = state.summaryHTML;
+
+    const stepSection = [...document.querySelectorAll('.summary-section')].find(section =>
+      section.querySelector('.summary-section-label')?.textContent?.trim() === 'Your First Aligned Step'
+    );
+
+    if (stepSection) {
+      firstStepText = stepSection.querySelector('.summary-section-content')?.textContent?.replace(/\s+/g, ' ').trim() || '';
+    }
+
+    return;
+  }
+
+  if (state.phase === 'loading') {
+    currentPhase = 'questions';
+    showScreen('question');
+    loadQuestion(Math.min(current, questions.length - 1));
+    return;
+  }
+
+  if (state.phase === 'questions') {
+    currentPhase = 'questions';
+    showScreen('question');
+    loadQuestion(Math.min(current, questions.length - 1));
+    return;
+  }
+
+  currentPhase = 'welcome';
+  showScreen('welcome');
+}
+function startAssessment() {
+  currentPhase = 'questions';
+  showScreen('question');
+  loadQuestion(current || 0);
+  saveState();
+}
+function loadQuestion(index) {
+  const q = questions[index];
+  document.getElementById('qLabel').textContent = `Question 0${index+1} of 06`;
+  document.getElementById('qTitle').textContent = q.title;
+  document.getElementById('qContext').textContent = q.context;
+  document.getElementById('qPrompt').textContent = q.prompt;
+  document.getElementById('qAnswer').value = answers[index] || '';
+  document.getElementById('progressFill').style.width = `${((index)/6)*100}%`;
+  document.getElementById('nextBtn').textContent = index === 5 ? 'Generate My Report' : 'Continue';
+  document.getElementById('backBtn').style.display = index > 0 ? 'inline-block' : 'none';
+  checkAnswer();
+  document.getElementById('qAnswer').focus();
+}
+function checkAnswer() {
+  const val = document.getElementById('qAnswer').value.trim();
+  document.getElementById('nextBtn').disabled = val.length < 10;
+
+  if (currentPhase === 'questions') {
+    answers[current] = val;
+    saveState();
+  }
+}
+function nextQuestion() {
+  saveCurrentAnswer();
+
+  if (current < questions.length - 1) {
+    current++;
+    loadQuestion(current);
+    saveState();
+  } else {
+    saveState();
+    generateSummary();
+  }
+}
+function prevQuestion() {
+  saveCurrentAnswer();
+  current = Math.max(0, current - 1);
+  loadQuestion(current);
+  saveState();
+}
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  if (id === 'welcome') currentPhase = 'welcome';
+  if (id === 'question') currentPhase = 'questions';
+  if (id === 'results' && document.getElementById('summaryContent')?.innerHTML.trim()) {
+    currentPhase = 'results';
+  }
+
+  window.scrollTo(0, 0);
+}
+async function generateSummary() {
+  showScreen('loading');
+  const prompt = `You are completing a structured bandwidth analysis for a woman redesigning her life.
+Here are her reflections:
+1. Current Reality: ${answers[0]}
+2. Repeating Friction: ${answers[1]}
+3. Relief Signal: ${answers[2]}
+4. Proven Capability: ${answers[3]}
+5. Bandwidth Constraint: ${answers[4]}
+6. Directional Pull: ${answers[5]}
+This report has TWO voices, used in sequence. Do not blend them. Use EXACTLY this structure with these five numbered headers, and NO additional sections.
+Use the section headers exactly as shown below. Keep the numbers and wording identical. Do not use Markdown headings, ## symbols, alternate titles, bullet headings, or renamed sections.
+
+PART ONE — THE CLINICAL READING (sections 1 to 2).
+Voice: "The MRI Technologist." Clinical, precise, objective, stark. State findings as data. No warmth, no reassurance, no encouragement, no advice, and no interpretation of meaning. Present the "what", not the "what it means". Keep statements factual and direct.
+
+1) PATTERN & BEHAVIOR ANALYSIS
+Organise your findings under the four core life systems so they are easy to scan — never one long block of prose. Cover every significant thing she shared, placing each detail under the system it belongs to (work and home go under Environment; commute and schedule under Time; health, energy, and relationships under Well-being; income, debt, and spending under Money). For each system she raised, put the system name in bold on its own line, then 1 to 2 short, factual observation lines citing her specifics. Use this order, leave a blank line between systems, and skip any system she did not raise:
+**Money:** ...
+**Time:** ...
+**Well-being:** ...
+**Environment:** ...
+Then end with one line that begins "**The overall pattern:**" and names the single underlying pattern or cycle that links them (for example: "decision without execution"). Keep every line short and factual — plain observations, no judgment, no emotional interpretation. Cover every significant thread she shared; do not compress or drop any.
+2) BANDWIDTH STATUS
+Begin with EXACTLY these four lines, in this order, one per line and nothing else on the line, using only one of these three words — Stable, Strained, or Critical:
+Money: <reading>
+Time: <reading>
+Well-being: <reading>
+Environment: <reading>
+Then leave a blank line and explain in a few short sentences, using the Bandwidth Tax™ framing. Lead with the single system carrying the highest Bandwidth Tax™ — the one in critical or greatest strain — and say it requires immediate attention.
+- Do NOT itemise or explain the other systems one by one. No per-system breakdown in this explanation.
+- If the other systems are stable, say so in one short line and stop.
+- If the other systems are also strained, frame their strain as consequences of the [root system] strain rather than root causes requiring separate immediate intervention. State plainly that all roads lead back to the root system — ease that one, and the others ease with it.
+Keep it tight and scannable: short sentences, never a dense paragraph.
+PART TWO — THE INTERPRETATION (sections 3 to 5).
+Voice: "The Compassionate Specialist." Now switch fully. You are a warm, wise friend sitting beside her after the scan — think Brené Brown having coffee with a friend, not a researcher. Make her feel seen, then guide her.
+Language rules: everyday words only; no jargon; NEVER use phrases like "sit with discomfort", "hold space", "lean into", "embodied", or "approach with curiosity" — say things plainly. Short sentences (10 to 15 words). Short paragraphs (1 to 3 sentences) separated by a blank line.
+
+3) WHAT THIS MEANS FOR YOU
+In plain, everyday language, explain what the clinical findings above actually mean for her day-to-day life. Connect the data to how her days feel. Gently name the thing she may not be able to see on her own, or may be afraid to admit to herself — the honest truth sitting underneath the patterns — and say it with care, never judgment. Wrap the single most important takeaway in **double asterisks**.
+4) YOUR FIRST ALIGNED STEP
+Give ONE small, doable action for the next 7 days — one action, not several. Make it specific and genuinely actionable (a concrete thing she can start), but keep it light and easy to begin; time-box it if that helps. Wrap the core action in **double asterisks**. You may add one short line of concrete detail or a simple example so she knows exactly how to start — but do not turn it into a multi-step list.
+5) WHERE THIS IS HEADING
+This is the CLOSING of the report — warm and honest, never preachy. It comes after she already has her one step, and it sets up an invitation for further support. Two short movements, then a bridge:
+First, the sober truth: if these same patterns continue, and she keeps waiting for conditions to change instead of acting, name plainly where that leads — and that the life she wants stays out of reach. Let it land as a real realisation, not a scolding.
+Then the turn: if she begins taking steps — not perfect ones, just real ones — describe what eases, in concrete everyday terms. Say the Bandwidth Tax™ starts coming down, and use her own words for relief: showing up for the people she loves the way she wants to, sleeping better, thinking clearly and making decisions again.
+End on the hopeful turn, then one gentle closing line that invites her to sit with this for a moment before deciding anything — there is no rush, and this is hers to absorb. Do not pitch or mention any program here; the page handles what comes next.
+
+Address her as "you" throughout. No disclaimers. No follow-up questions.`;
+  try {
+    const API_URL = 'https://softlife-api.vercel.app/api/generate';
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 1600
+      })
+    });
+    if (!response.ok) throw new Error(`API returned ${response.status}`);
+    const data = await response.json();
+    const text = data.content?.[0]?.text || '';
+    if (!text) throw new Error('No response received');
+    displayResults(text);
+  } catch (err) {
+    console.error('Report generation error:', err);
+    showScreen('results');
+    document.getElementById('summaryContent').innerHTML = `
+      <div class="error-box">
+        <p style="margin-bottom:0.75rem">Something went wrong generating your report.</p>
+        <p style="font-size:0.78rem;color:rgba(255,180,180,0.6);margin-bottom:1rem">Please try again.</p>
+        <button onclick="generateSummary()" style="background:var(--gold-soft);color:var(--dark);border:none;padding:0.7rem 2rem;font-family:'Jost',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;border-radius:2px;cursor:pointer">Retry →</button>
+      </div>`;
+    currentPhase = 'questions';
+    saveState();
+  }
+}
+let firstStepText = '';
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function formatBody(raw){
+  let t = escHtml(raw);
+  // Remove Markdown heading markers at the start of lines (e.g. "## ...")
+  t = t.replace(/^#{1,6}\s*/gm, '');
+  // Remove internal prompt divider lines if the AI echoes them
+  t = t.replace(/^\s*(PART ONE|PART TWO)\s*[—\-:]*\s*(THE CLINICAL READING|THE INTERPRETATION)?\s*$/gim, '');
+  t = t.replace(/^\s*(THE CLINICAL READING|THE INTERPRETATION)\s*$/gim, '');
+  // Convert paired bold, then strip any leftover unmatched markers
+  t = t.replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>');
+  t = t.replace(/\*\*/g, '');
+  const blocks = t.split(/\n\s*\n/);
+  let out = '';
+  blocks.forEach(b => {
+    const lines = b.split(/\n/).map(l => l.trim()).filter(Boolean);
+    if (!lines.length) return;
+    const isList = lines.every(l => /^[-•]\s+/.test(l));
+    if (isList) { out += '<ul>' + lines.map(l => '<li>' + l.replace(/^[-•]\s+/, '') + '</li>').join('') + '</ul>'; }
+    else { out += '<p>' + lines.join('<br>') + '</p>'; }
+  });
+  return out || ('<p>' + t + '</p>');
+}
+function calEvent(daysOut, summary, note, filename){
+  const step = (firstStepText || 'Your first aligned step from the Bandwidth Audit.').slice(0, 300);
+  function pad(n){ return String(n).padStart(2, '0'); }
+  function fmt(d){ return d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate()) + 'T' + pad(d.getHours()) + pad(d.getMinutes()) + '00'; }
+  function esc(s){ return s.replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1').replace(/\n/g, '\\n'); }
+  const now = new Date();
+  const start = new Date(now.getTime() + daysOut*24*60*60*1000);
+  start.setHours(9, 0, 0, 0);
+  const end = new Date(start.getTime() + 60*60*1000);
+  const desc = note + '\n\nYour step: ' + step;
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//The Bandwidth Collective//Bandwidth Audit//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:' + now.getTime() + '-' + daysOut + '@thebandwidthcollective','DTSTAMP:' + fmt(now),'DTSTART:' + fmt(start),'DTEND:' + fmt(end),'SUMMARY:' + esc(summary),'DESCRIPTION:' + esc(desc),'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:' + esc(summary),'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function addCheckin3(){ calEvent(3, '3-day check-in — your first aligned step', 'Halfway point. How is your step going? Adjust it if you need to.', '3-day-check-in.ics'); }
+function addDay7(){ calEvent(7, '7-day review — your first aligned step', 'Your 7-day mark. Did this shift anything? Notice what changed.', '7-day-review.ics'); }
+function renderStatus(content){
+  const systems = ['Money','Time','Well-being','Environment'];
+  const colors = { stable:'#5DCAA5', strained:'#E0B33A', critical:'#E0635D' };
+  const labels = { stable:'Stable', strained:'Strained', critical:'Critical' };
+  let explanation = content;
+  let rows = '';
+  systems.forEach(sys => {
+    const re = new RegExp(sys.replace('-', '[\\s-]?') + '\\s*[:：\\-—]\\s*(Stable|Strained|Critical)', 'i');
+    const m = content.match(re);
+    const key = m ? m[1].toLowerCase() : '';
+    const col = colors[key] || 'rgba(255,255,255,0.25)';
+    const lab = labels[key] || '—';
+    rows += `<div class="bw-row"><span class="bw-dot" style="background:${col}"></span><span class="bw-sys">${sys}</span><span class="bw-stat" style="color:${col}">${lab}</span></div>`;
+    if (m) explanation = explanation.replace(m[0], '');
+  });
+  explanation = explanation.replace(/^[\s\n·•|,\-]+/, '').trim();
+  const legend = '<div class="bw-legend"><span><span class="bw-dot" style="background:#5DCAA5"></span>Stable</span><span><span class="bw-dot" style="background:#E0B33A"></span>Strained</span><span><span class="bw-dot" style="background:#E0635D"></span>Critical</span></div>';
+  const dash = '<div class="bw-dash">' + legend + '<div class="bw-rows">' + rows + '</div></div>';
+  return dash + (explanation ? `<div class="summary-section-content" style="margin-top:0.95rem">${formatBody(explanation)}</div>` : '');
+}
+function displayResults(text) {
+  showScreen('results');
+  const clinical = [
+    { key: 'PATTERN & BEHAVIOR ANALYSIS', label: 'Pattern & Behavior Analysis' },
+    { key: 'BANDWIDTH STATUS', label: 'Bandwidth Status' }
+  ];
+  const specialist = [
+    { key: 'WHAT THIS MEANS FOR YOU', label: 'What This Means For You' },
+    { key: 'YOUR FIRST ALIGNED STEP', label: 'Your First Aligned Step', step: true },
+    { key: 'WHERE THIS IS HEADING', label: 'Where This Is Heading' }
+  ];
+  const all = clinical.concat(specialist);
+  function grab(i){
+    const startKey = `${i+1}) ${all[i].key}`;
+    const nextKey = i < all.length - 1 ? `${i+2}) ${all[i+1].key}` : null;
+    const s = text.indexOf(startKey);
+    if (s === -1) return '';
+    let content = nextKey
+      ? (text.indexOf(nextKey) !== -1 ? text.slice(s + startKey.length, text.indexOf(nextKey)) : text.slice(s + startKey.length))
+      : text.slice(s + startKey.length);
+    return content.replace(/^[\s:—\-]+/, '').trim();
+  }
+  let clinHtml = '';
+  clinical.forEach((sec, idx) => {
+    const content = grab(idx);
+    if (!content) return;
+    const inner = (sec.key === 'BANDWIDTH STATUS') ? renderStatus(content) : `<div class="summary-section-content">${formatBody(content)}</div>`;
+    clinHtml += `<div class="summary-section clinical"><p class="summary-section-label">${sec.label}</p>${inner}</div>`;
+  });
+  let specHtml = '';
+  specialist.forEach((sec, idx) => {
+    const content = grab(clinical.length + idx);
+    if (!content) return;
+    if (sec.step) {
+      firstStepText = content.replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+      specHtml += `<div class="summary-section highlight"><p class="summary-section-label">${sec.label}</p><div class="summary-section-content">${formatBody(content)}</div><div class="cal-btns"><button class="cal-btn" onclick="addCheckin3()">＋ 3-day check-in</button><button class="cal-btn" onclick="addDay7()">＋ 7-day reminder</button></div><p class="cal-hint">Adds two gentle nudges to your phone or computer calendar — a check-in at day 3 and a review at day 7, each with a reminder.</p></div>`;
+    } else {
+      specHtml += `<div class="summary-section"><p class="summary-section-label">${sec.label}</p><div class="summary-section-content">${formatBody(content)}</div></div>`;
+    }
+  });
+  let html = '';
+  if (clinHtml || specHtml) {
+    html += `<p class="handoff-welcome">Okay — take a breath. Seeing it all laid out like this can be a lot, but reading it honestly is one of the most useful things you can do right now. What you see here is making the invisible visible — not to judge you, but to help you understand where the strain has been sitting.</p>`;
+    if (clinHtml) html += `<div class="clinical-block"><p class="clinical-heading">Your Bandwidth Audit results</p>${clinHtml}</div>`;
+    if (specHtml) html += `<p class="handoff-line">Now — let's talk about what this actually means.</p>${specHtml}`;
+  }
+  if (!html) {
+    html = `<div class="summary-section highlight"><p class="summary-section-label">Your Bandwidth Audit Report</p><div class="summary-section-content">${formatBody(text)}</div></div>`;
+  }
+  document.getElementById('summaryContent').innerHTML = html;
+  window.scrollTo(0, 0);
+  currentPhase = 'results';
+  saveState();
+}
+function restart() {
+  suppressStateSave = true;
+  clearState();
+
+  current = 0;
+  answers = [];
+  firstStepText = '';
+  currentPhase = 'welcome';
+
+  const summary = document.getElementById('summaryContent');
+  if (summary) summary.innerHTML = '';
+
+  const answer = document.getElementById('qAnswer');
+  if (answer) answer.value = '';
+
+  const offer = document.getElementById('intensiveOfferBlock');
+  const completion = document.getElementById('completionMessage');
+  const banner = document.getElementById('resumeBanner');
+
+  if (offer) offer.style.display = '';
+  if (completion) completion.style.display = 'none';
+  if (banner) banner.style.display = 'none';
+
+  showScreen('welcome');
+
+  suppressStateSave = false;
+  clearState();
+}
+// ═══════════════════════════════════════════════
+// FINAL CTA — "No thanks" → completion / thank-you message
+// ═══════════════════════════════════════════════
+function showCompletionMessage() {
+  const offer = document.getElementById('intensiveOfferBlock');
+  const completion = document.getElementById('completionMessage');
+
+  if (offer) offer.style.display = 'none';
+  if (completion) completion.style.display = 'block';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (typeof saveState === 'function') {
+    saveState();
+  }
+}
+// ═══════════════════════════════════════════════
+// PDF BLUEPRINT DOWNLOAD
+// ═══════════════════════════════════════════════
+function escapePDFHTML(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+async function downloadBlueprint() {
+  const btn = document.getElementById('downloadPdfBtn');
+  const status = document.getElementById('downloadStatus');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="icon">⟳</span> Generating PDF…';
+  status.textContent = 'Building your bandwidth report…';
+  status.style.display = 'block';
+  try {
+    const pdfContainer = document.createElement('div');
+    pdfContainer.id = 'pdf-render-target';
+    pdfContainer.style.cssText = `
+      position: fixed; top: -9999px; left: -9999px;
+      width: 612px; padding: 50px 48px;
+      background: #0D0D0D; color: #FFFFFF;
+      font-family: 'Jost', sans-serif; font-weight: 300; line-height: 1.7;
+    `;
+    const summaryEl = document.getElementById('summaryContent');
+    const sections = summaryEl.querySelectorAll('.summary-section');
+    const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    let sectionsHTML = '';
+    sections.forEach(sec => {
+      const label = sec.querySelector('.summary-section-label')?.textContent || '';
+      let content = '';
+      const dash = sec.querySelector('.bw-dash');
+      if (dash) {
+        content += [...sec.querySelectorAll('.bw-row')].map(r => (r.querySelector('.bw-sys')?.textContent || '') + ': ' + (r.querySelector('.bw-stat')?.textContent || '')).join('\n') + '\n\n';
+      }
+      content += sec.querySelector('.summary-section-content')?.textContent || '';
+      sectionsHTML += `
+        <div style="margin-bottom:24px;border-left:2px solid #D4AF37;padding-left:16px;">
+          <p style="font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:#D4AF37;margin:0 0 8px 0;font-weight:500">${escapePDFHTML(label)}</p>
+          <p style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.75;margin:0;white-space:pre-wrap">${escapePDFHTML(content)}</p>
+        </div>`;
+    });
+    pdfContainer.innerHTML = `
+      <div style="text-align:center;margin-bottom:36px;">
+        <p style="font-size:8px;letter-spacing:0.4em;text-transform:uppercase;color:#D4AF37;margin:0 0 12px 0">The Bandwidth Collective™</p>
+        <p style="font-family:'Playfair Display',serif;font-size:26px;color:#FFFFFF;margin:0 0 4px 0;font-weight:400">The Bandwidth Audit™</p>
+        <p style="font-family:'Playfair Display',serif;font-size:16px;color:#F0DFA0;margin:0 0 12px 0;font-style:italic">Your Capacity Map</p>
+        <div style="width:40px;height:1px;background:#D4AF37;margin:0 auto 12px"></div>
+        <p style="font-size:9px;color:rgba(255,255,255,0.5);margin:0 0 4px 0">A diagnostic report from the From Clues to Capacity™ system</p>
+        <p style="font-size:8px;letter-spacing:0.18em;color:rgba(255,255,255,0.4);margin:0 0 6px 0">Money · Time · Well-being · Environment</p>
+        <p style="font-size:9px;color:rgba(255,255,255,0.35);margin:0">Generated ${date}</p>
+      </div>
+      ${sectionsHTML}
+      <div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(212,175,55,0.2);text-align:center;">
+        <p style="font-size:9px;color:rgba(255,255,255,0.35);margin:0 0 4px 0">Ready to claim your refund on the Bandwidth Tax?</p>
+        <p style="font-size:10px;color:#D4AF37;margin:0 0 8px 0;letter-spacing:0.1em">Apply your $47 credit toward The Bandwidth Reallocation Experience™ — upgrade from your results page</p>
+        <p style="font-size:9px;color:rgba(255,255,255,0.35);margin:0 0 16px 0">Or join The Bandwidth Collective™ free community — link on your results page</p>
+        <p style="font-size:8px;color:rgba(255,255,255,0.2);margin:0">© The Bandwidth Collective™ — The Bandwidth Audit™ is a trademark of Samone Davis. All rights reserved.</p>
+      </div>
+    `;
+    document.body.appendChild(pdfContainer);
+    const canvas = await html2canvas(pdfContainer, {
+      scale: 1.5,
+      backgroundColor: '#0D0D0D',
+      useCORS: true,
+      logging: false
+    });
+    document.body.removeChild(pdfContainer);
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'pt', 'letter');
+    const imgData = canvas.toDataURL('image/png');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    if (pdfHeight <= pageHeight) {
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    } else {
+      let position = 0;
+      const totalPages = Math.ceil(pdfHeight / pageHeight);
+      for (let i = 0; i < totalPages; i++) {
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, -position, pdfWidth, pdfHeight);
+        position += pageHeight;
+      }
+    }
+    pdf.save('Bandwidth-Audit-Report-TheBandwidthCollective.pdf');
+    btn.innerHTML = '<span class="icon">✓</span> Report Downloaded';
+    status.textContent = 'Your report has been saved. Keep it — it is the foundation for your next chapter.';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = '<span class="icon">↓</span> Download Your Bandwidth Report (PDF)';
+    }, 4000);
+
+    return true;
+  } catch (err) {
+    console.error('PDF generation error:', err);
+    btn.disabled = false;
+    btn.innerHTML = '<span class="icon">↓</span> Download Your Bandwidth Report (PDF)';
+    status.textContent = 'PDF generation failed. Try again or take a screenshot of your results.';
+    status.style.color = 'rgba(255,180,180,0.7)';
+    return false;
+  }
+}
+// ═══════════════════════════════════════════════
+// SESSION RESTORE — Resume where you left off
+// ═══════════════════════════════════════════════
+(function initFromState() {
+  const state = loadState();
+  if (!state) return;
+
+  const hasAnsweredSomething =
+    Array.isArray(state.answers) && state.answers.some(answer => String(answer || '').trim().length > 0);
+
+  const hasResults =
+    state.phase === 'results' && state.summaryHTML && state.summaryHTML.trim().length > 0;
+
+  const hasMeaningfulProgress =
+    state.phase !== 'welcome' || hasAnsweredSomething || hasResults;
+
+  if (!hasMeaningfulProgress) return;
+
+  pendingResumeState = state;
+  showResumeBanner(state);
+})();
+</script>
+</body>
+</html>
+
