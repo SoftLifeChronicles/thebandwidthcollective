@@ -10,3 +10,6 @@
 /clarity-compass.html      /bandwidth-compass         301!
 /one-decision-reset.html   /bandwidth-reset           301!
 /bandwidth-audit.html      /bandwidth-audit           301!
+
+# Aug 1 workshop - clean URL
+/workshop/aug1    /workshop/aug1.html    200
