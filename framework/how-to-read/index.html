@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Read The Bandwidth Tax™ Framework — Interactive</title>
+<!--
+  ============================================================================
+  The Bandwidth Tax™ Framework — Interactive Teaching Experience
+  HAND-AUTHORED (not generator output). Governed by, and subordinate to:
+    1) bandwidth-tax-framework-canonical-v1.html   (Canonical Visual — master)
+    2) bandwidth-tax-framework-design-standard.html (Design Standard)
+    3) bandwidth-tax-architecture.md                (IP Architecture)
+    4) bandwidth-tax-how-to-read.html               (Teaching sequence source)
+  This file TEACHES the framework. It is not a diagnostic, computes no score,
+  and is not The Bandwidth Compass™ (the diagnostic instrument).
+  Reservoir geometry is reused from the canonical master (vessel path,
+  strain-line datum, hatch pattern, ribbon parametrization).
+  DEPLOYMENT: published at thebandwidthcollective.com/framework/how-to-read/
+  (repo path framework/how-to-read/index.html). THIS file is the canonical
+  source; the deployed copy is an exact snapshot of it. Update direction:
+  canonical -> published. Never edit the deployed copy directly.
+  ============================================================================
+-->
+<meta name="description" content="Watch The Bandwidth Tax™ Framework build one layer at a time — an interactive guide to reading the Reservoir Model, from The Bandwidth Collective™."/>
+<link rel="canonical" href="https://thebandwidthcollective.com/framework/how-to-read/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="How to Read The Bandwidth Tax™ Framework"/>
+<meta property="og:description" content="Watch The Bandwidth Tax™ Framework build one layer at a time — an interactive guide to reading the Reservoir Model, from The Bandwidth Collective™."/>
+<meta property="og:url" content="https://thebandwidthcollective.com/framework/how-to-read/"/>
+<meta property="og:site_name" content="The Bandwidth Collective™"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to Read The Bandwidth Tax™ Framework"/>
+<meta name="twitter:description" content="Watch The Bandwidth Tax™ Framework build one layer at a time — an interactive guide to reading the Reservoir Model, from The Bandwidth Collective™."/>
+<!-- Reservoir favicon — the framework mark from the Design Standard (favicon reduction) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 116'%3E%3Cdefs%3E%3Cpattern id='h' width='4.2' height='4.2' patternUnits='userSpaceOnUse' patternTransform='rotate(45)'%3E%3Crect width='4.2' height='4.2' fill='%232E2721'/%3E%3Cline x1='0' y1='0' x2='0' y2='4.2' stroke='%23463C31' stroke-width='1'/%3E%3C/pattern%3E%3CclipPath id='c'%3E%3Cpath d='M30,20 L30,93 Q30,104 41,104 L59,104 Q70,104 70,93 L70,20 Z'/%3E%3C/clipPath%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23E7CF8F'/%3E%3Cstop offset='1' stop-color='%23C9A449'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='30' y='70' width='40' height='34' fill='url(%23h)'/%3E%3Crect x='30' y='34' width='40' height='36' fill='url(%23g)'/%3E%3C/g%3E%3Cpath d='M69,45 C84,47 94,59 103,77 C95,63 85,56 69,55 Z' fill='%23C9A449'/%3E%3Cpath d='M30,20 L30,93 Q30,104 41,104 L59,104 Q70,104 70,93 L70,20' fill='none' stroke='%231A1712' stroke-width='2.4' stroke-linecap='round'/%3E%3Cline x1='30' y1='20' x2='70' y2='20' stroke='%231A1712' stroke-width='0.9' stroke-dasharray='2.5 3' opacity='0.5'/%3E%3Cline x1='23' y1='70' x2='77' y2='70' stroke='%231A1712' stroke-width='2.4'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    /* Official palette — Design Standard v1.0 */
+    --gold:#C9A449; --gold-light:#E7CF8F; --gold-deep:#A9822E;
+    --strain:#2E2721; --ink:#1A1712; --ivory:#F4EEE1; --paper:#FBF8F1;
+    --muted:#6B6456; --faint:#B9AF9C;
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"Montserrat","Segoe UI",Arial,sans-serif;
+  }
+  body{background:var(--ivory);font-family:var(--sans);color:var(--ink);line-height:1.55;padding:22px 14px 40px;}
+  .doc{max-width:1060px;margin:0 auto;background:var(--paper);border:1px solid rgba(169,130,46,.30);border-radius:14px;box-shadow:0 30px 70px -38px rgba(0,0,0,.5);overflow:hidden;}
+  header.masthead{padding:26px 40px 18px;text-align:center;border-bottom:2px solid var(--gold);}
+  .masthead .eyebrow{font-size:10px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);}
+  .masthead h1{font-family:var(--serif);font-weight:800;font-size:clamp(20px,3.4vw,27px);line-height:1.1;margin:7px 0 3px;}
+  .masthead .desc{font-size:10.5px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);}
+  .stagewrap{display:flex;gap:0;align-items:stretch;min-height:520px;}
+  .visual{flex:1 1 55%;padding:18px 8px 8px 18px;display:flex;align-items:center;}
+  .visual svg{display:block;width:100%;height:auto;max-height:560px;}
+  .panel{flex:1 1 45%;padding:34px 38px 24px 26px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(169,130,46,.18);}
+  .panel .kick{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px;min-height:13px;}
+  .panel h2{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.6vw,24px);line-height:1.25;margin-bottom:14px;}
+  .panel p{font-size:15px;color:#2c281f;margin-bottom:12px;max-width:46ch;}
+  .panel p.note{font-size:12.5px;color:var(--muted);}
+  .panel p.lead{font-family:var(--serif);font-size:17px;line-height:1.5;}
+  .panel .reframe{font-family:var(--serif);font-style:italic;font-size:16.5px;color:#2c281f;line-height:1.5;margin-bottom:12px;}
+  .panel .bigq{font-family:var(--serif);font-weight:800;font-size:21px;margin:4px 0 10px;}
+  .panel .bigq .tm{color:var(--gold-deep);}
+  .panel .arc{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin:6px 0 16px;}
+  .panel .distinct{font-size:11.5px;color:var(--muted);border-left:2px solid var(--gold);padding-left:10px;margin:4px 0 14px;line-height:1.6;}
+  /* Buttons */
+  .btn{display:inline-block;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.06em;padding:12px 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;transition:opacity .2s;text-decoration:none;text-align:center;}
+  .btn:hover{opacity:.85;}
+  .btn.gold{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .btn:disabled{opacity:.3;cursor:not-allowed;}
+  .btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--gold-deep);outline-offset:2px;}
+  .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  /* Nav bar */
+  nav.controls{display:flex;align-items:center;gap:12px;padding:16px 40px 20px;border-top:1px solid rgba(169,130,46,.18);flex-wrap:wrap;}
+  nav.controls .spacer{flex:1;}
+  .progress{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+  .navbtn{font-family:var(--sans);font-weight:700;font-size:12.5px;letter-spacing:.05em;padding:10px 20px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;}
+  .navbtn.primary{background:var(--ink);color:var(--paper);}
+  .navbtn:disabled{opacity:.3;cursor:not-allowed;}
+  .restart{font-size:12px;background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-family:var(--sans);}
+  /* Explorer */
+  .explorer{margin-top:16px;padding-top:14px;border-top:1px solid rgba(169,130,46,.25);}
+  .explorer .xlab{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
+  .explorer .levels{display:flex;gap:8px;flex-wrap:wrap;}
+  .lvl{font-family:var(--sans);font-weight:600;font-size:12px;padding:9px 16px;border-radius:999px;border:1.5px solid rgba(26,23,18,.45);background:transparent;color:var(--ink);cursor:pointer;}
+  .lvl[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .explorer .disclaim{font-size:11px;color:var(--muted);margin-top:9px;}
+  footer.base{padding:14px;text-align:center;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);border-top:1px solid rgba(169,130,46,.18);}
+  /* SVG element states: fade via opacity; geometry tweened in JS */
+  .fades{transition:opacity .55s ease;}
+  .off{opacity:0;}
+  @media (prefers-reduced-motion: reduce){
+    .fades{transition:none;}
+    *{transition:none !important;}
+  }
+  /* Responsive: stack visual above copy on small screens */
+  @media (max-width: 780px){
+    .stagewrap{flex-direction:column;min-height:0;}
+    .visual{padding:12px 10px 0;}
+    .panel{border-left:none;border-top:1px solid rgba(169,130,46,.18);padding:22px 22px 18px;}
+    nav.controls{padding:14px 18px 18px;}
+    .navbtn{padding:12px 22px;}
+    header.masthead{padding:20px 16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="masthead">
+    <div class="eyebrow">How to read the framework · Interactive</div>
+    <h1>The Bandwidth Tax™ Framework</h1>
+    <div class="desc">The Reservoir Model</div>
+  </header>
+
+  <div class="stagewrap">
+    <!-- ============ THE RESERVOIR (canonical geometry, one SVG, state-driven) ============ -->
+    <div class="visual">
+      <svg id="reservoir" viewBox="240 100 620 600" role="img" aria-labelledby="svgTitle svgDesc">
+        <title id="svgTitle">The Bandwidth Tax™ Framework reservoir diagram</title>
+        <desc id="svgDesc">A reservoir. Four life systems feed it. A gold band of Available Capacity sits above a dark hatched Bandwidth Tax layer, divided by the Strain Line. Follow-through flows out of the capacity band.</desc>
+        <defs>
+          <linearGradient id="goldgrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#E7CF8F"/><stop offset="1" stop-color="#C9A449"/>
+          </linearGradient>
+          <linearGradient id="streamgrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C9A449"/><stop offset="1" stop-color="#A9822E"/>
+          </linearGradient>
+          <pattern id="fhatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="7" height="7" fill="#2E2721"/>
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#463C31" stroke-width="1.5"/>
+          </pattern>
+          <clipPath id="vclip"><path d="M375,214 L375,606 Q375,650 419,650 L581,650 Q625,650 625,606 L625,214 Z"/></clipPath>
+        </defs>
+
+        <!-- Four Life Systems inlets (canonical positions) -->
+        <g id="g-inlets" class="fades off" aria-hidden="true">
+          <text x="250" y="150" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="12" letter-spacing="2.5" fill="#1A1712">MONEY</text>
+          <path d="M250,162 C250,188 417,190 417,211" fill="none" stroke="#B9AF9C" stroke-width="1.4"/><circle cx="417" cy="212" r="2.6" fill="#A9822E"/>
+          <text x="417" y="150" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="12" letter-spacing="2.5" fill="#1A1712">TIME</text>
+          <path d="M417,162 C417,188 471,190 471,211" fill="none" stroke="#B9AF9C" stroke-width="1.4"/><circle cx="471" cy="212" r="2.6" fill="#A9822E"/>
+          <text x="583" y="150" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="12" letter-spacing="2.5" fill="#1A1712">WELL-BEING</text>
+          <path d="M583,162 C583,188 529,190 529,211" fill="none" stroke="#B9AF9C" stroke-width="1.4"/><circle cx="529" cy="212" r="2.6" fill="#A9822E"/>
+          <text x="750" y="150" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="12" letter-spacing="2.5" fill="#1A1712">ENVIRONMENT</text>
+          <path d="M750,162 C750,188 583,190 583,211" fill="none" stroke="#B9AF9C" stroke-width="1.4"/><circle cx="583" cy="212" r="2.6" fill="#A9822E"/>
+        </g>
+
+        <!-- fills (clipped to vessel) -->
+        <g clip-path="url(#vclip)">
+          <rect id="taxLayer" class="fades off" x="375" y="650" width="250" height="0" fill="url(#fhatch)"/>
+          <rect id="goldBand" class="fades off" x="375" y="270" width="250" height="0" fill="url(#goldgrad)"/>
+        </g>
+
+        <!-- follow-through ribbon (behind vessel edge; path regenerated by JS) -->
+        <path id="ribbon" class="fades off" d="" fill="url(#streamgrad)"/>
+
+        <!-- vessel outline + full-capacity rim (canonical) -->
+        <path d="M375,214 L375,606 Q375,650 419,650 L581,650 Q625,650 625,606 L625,214"
+              fill="none" stroke="#1A1712" stroke-width="3.4" stroke-linecap="round"/>
+        <line x1="375" y1="214" x2="625" y2="214" stroke="#1A1712" stroke-width="1.3" stroke-dasharray="4 6" opacity="0.5"/>
+        <!-- gold waterline -->
+        <line id="waterline" class="fades off" x1="375" y1="270" x2="625" y2="270" stroke="#A9822E" stroke-width="1.4" opacity="0.8"/>
+        <!-- THE STRAIN LINE™: bold datum extending past the vessel (canonical) -->
+        <line id="strainLine" class="fades off" x1="329" y1="468" x2="671" y2="468" stroke="#1A1712" stroke-width="3.4"/>
+
+        <!-- annotations (positions updated by JS as the strain level moves) -->
+        <g id="lab-fullcap" class="fades off" aria-hidden="true">
+          <text x="311" y="218" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="10" letter-spacing="1.5" fill="#6B6456">FULL CAPACITY</text>
+          <line x1="317" y1="214" x2="369" y2="214" stroke="#B9AF9C" stroke-width="1" stroke-dasharray="3 4"/>
+        </g>
+        <g id="lab-capacity" class="fades off" aria-hidden="true">
+          <text id="capT1" x="311" y="365" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="12.5" letter-spacing="1.5" fill="#1A1712">AVAILABLE</text>
+          <text id="capT2" x="311" y="382" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="12.5" letter-spacing="1.5" fill="#1A1712">CAPACITY</text>
+          <line id="capTick" x1="317" y1="373" x2="369" y2="373" stroke="#A9822E" stroke-width="1" opacity="0.6"/>
+        </g>
+        <g id="lab-strain" class="fades off" aria-hidden="true">
+          <text id="strainT" x="311" y="460" text-anchor="end" font-family="Playfair Display" font-weight="600" font-size="13.5" font-style="italic" fill="#1A1712">the strain line™</text>
+        </g>
+        <g id="lab-tax" class="fades off" aria-hidden="true">
+          <text id="taxT1" x="311" y="557" text-anchor="end" font-family="Montserrat" font-weight="800" font-size="12.5" letter-spacing="1" fill="#2E2721">BANDWIDTH TAX™</text>
+          <text id="taxT2" x="311" y="574" text-anchor="end" font-family="Playfair Display" font-weight="700" font-size="10.5" letter-spacing="0.5" font-style="italic" fill="#6B6456">hidden strain</text>
+          <line id="taxTick" x1="317" y1="563" x2="369" y2="563" stroke="#463C31" stroke-width="1" opacity="0.5"/>
+        </g>
+        <g id="lab-follow" class="fades off" aria-hidden="true">
+          <text id="folT1" x="745" y="489" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="12.5" letter-spacing="1.5" fill="#1A1712">FOLLOW-THROUGH</text>
+          <text id="folT2" x="745" y="507" text-anchor="middle" font-family="Playfair Display" font-weight="700" font-size="10.5" letter-spacing="0.5" font-style="italic" fill="#6B6456">consistent action</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ============ TEACHING PANEL ============ -->
+    <div class="panel">
+      <div class="kick" id="stageKick"></div>
+      <div id="stageCopy" aria-live="polite"></div>
+      <div id="stageActions"></div>
+    </div>
+  </div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="controls" aria-label="Framework stages">
+    <button class="navbtn" id="btnPrev" type="button">← Previous</button>
+    <button class="navbtn primary" id="btnNext" type="button">Next →</button>
+    <span class="spacer"></span>
+    <span class="progress" id="progress" aria-live="polite"></span>
+    <span class="spacer"></span>
+    <button class="restart" id="btnRestart" type="button">Restart</button>
+  </nav>
+
+  <footer class="base">The Bandwidth Collective™ · Make the Invisible Visible</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= Geometry constants (canonical master) ================= */
+  var WATER_Y = 270;        // gold waterline (top of Available Capacity)
+  var VESSEL_BOTTOM = 650;  // inside bottom of the vessel
+  var CANON_STRAIN = 468;   // the canonical Strain Line™ position
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Placeholder link — REPLACE with the real Bandwidth Compass™ URL when live. */
+  var COMPASS_URL = "#bandwidth-compass"; /* TODO(Samone): real destination */
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ================= Reservoir renderer =================
+     One numeric drives the picture: strainY — the boundary between
+     Available Capacity (gold, WATER_Y..strainY) and the Bandwidth Tax™
+     (hatched, strainY..VESSEL_BOTTOM). strainY === VESSEL_BOTTOM means no tax. */
+  function ribbonPath(strainY) {
+    /* Canonical parametrization: start depth ≈ 40% into the gold band;
+       thickness scales with the band (26 units at the canonical band height). */
+    var h = strainY - WATER_Y;
+    if (h <= 10) return "";
+    var a = WATER_Y + 0.404 * h;
+    var t = Math.max(5, 26 * h / 198);
+    var b = a + t;
+    function r(n) { return Math.round(n * 10) / 10; }
+    return "M623," + r(a) + " C695," + r(a + 5) + " 745," + r(a + 53) + " 793," + r(a + 131) +
+           " C751," + r(a + 79) + " 703," + r(a + 43) + " 623," + r(b) + " Z";
+  }
+
+  function setGeometry(strainY) {
+    $("goldBand").setAttribute("y", WATER_Y);
+    $("goldBand").setAttribute("height", Math.max(0, strainY - WATER_Y));
+    $("taxLayer").setAttribute("y", strainY);
+    $("taxLayer").setAttribute("height", Math.max(0, VESSEL_BOTTOM - strainY));
+    $("strainLine").setAttribute("y1", strainY);
+    $("strainLine").setAttribute("y2", strainY);
+    $("ribbon").setAttribute("d", ribbonPath(strainY));
+    /* annotation positions track the boundary */
+    var capMid = (WATER_Y + strainY) / 2;
+    $("capT1").setAttribute("y", capMid - 4);
+    $("capT2").setAttribute("y", capMid + 13);
+    $("capTick").setAttribute("y1", capMid + 4);
+    $("capTick").setAttribute("y2", capMid + 4);
+    $("strainT").setAttribute("y", strainY - 8);
+    var taxMid = (strainY + VESSEL_BOTTOM) / 2;
+    $("taxT1").setAttribute("y", taxMid - 2);
+    $("taxT2").setAttribute("y", taxMid + 15);
+    $("taxTick").setAttribute("y1", taxMid + 4);
+    $("taxTick").setAttribute("y2", taxMid + 4);
+    var h = strainY - WATER_Y;
+    var endY = (WATER_Y + 0.404 * h) + 131;
+    $("folT1").setAttribute("y", endY + 8);
+    $("folT2").setAttribute("y", endY + 26);
+  }
+
+  var currentStrainY = VESSEL_BOTTOM;
+  var tweenToken = 0; /* increments per tween; stale frames abort */
+  function tweenStrain(toY, done) {
+    var token = ++tweenToken;
+    /* Reduced motion: jump straight to the final state. */
+    if (reducedMotion) { currentStrainY = toY; setGeometry(toY); if (done) done(); return; }
+    var fromY = currentStrainY, t0 = null, DUR = 650, finished = false;
+    function finish() {
+      if (finished || token !== tweenToken) return;
+      finished = true;
+      currentStrainY = toY; setGeometry(toY);
+      if (done) done();
+    }
+    function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function frame(ts) {
+      if (finished || token !== tweenToken) return; /* superseded by a newer tween */
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / DUR);
+      setGeometry(fromY + (toY - fromY) * ease(p));
+      if (p < 1) { requestAnimationFrame(frame); } else { finish(); }
+    }
+    requestAnimationFrame(frame);
+    /* Guaranteed completion: if rAF is throttled or starved (backgrounded tab,
+       embedded webview), snap to the final state so the picture is never stale. */
+    setTimeout(finish, DUR + 120);
+  }
+
+  function show(id, on) {
+    var el = $(id);
+    el.classList.toggle("off", !on);
+    if (el.getAttribute("aria-hidden") !== null) el.setAttribute("aria-hidden", on ? "false" : "true");
+  }
+
+  /* Apply a full visual state: which layers/labels are visible + boundary position. */
+  function updateReservoir(v) {
+    show("g-inlets", v.inlets);
+    show("goldBand", v.gold);
+    show("waterline", v.gold);
+    show("taxLayer", v.tax);
+    show("strainLine", v.line);
+    show("ribbon", v.ribbon);
+    show("lab-fullcap", v.labels.indexOf("fullcap") >= 0);
+    show("lab-capacity", v.labels.indexOf("capacity") >= 0);
+    show("lab-strain", v.labels.indexOf("strain") >= 0);
+    show("lab-tax", v.labels.indexOf("tax") >= 0);
+    show("lab-follow", v.labels.indexOf("follow") >= 0);
+    tweenStrain(v.strainY);
+  }
+
+  /* ================= Stage configuration =================
+     Copy is fixed by the approved spec; the teaching sequence is frozen. */
+  var STAGES = [
+    { id: "opening", kick: "", visual: { inlets: false, gold: false, tax: false, line: false, ribbon: false, labels: [], strainY: VESSEL_BOTTOM },
+      html: '<p class="lead">Have you ever wondered why some days you can handle everything, while on other days the smallest thing feels like too much?</p>' +
+            '<p>The answer is not always motivation. Sometimes it is capacity.</p>',
+      actions: '<div class="cta-row"><button class="btn gold" id="btnBuild" type="button">Build the framework</button></div>' },
+
+    { id: "reservoir", kick: "Stage 1 · The Reservoir", visual: { inlets: false, gold: false, tax: false, line: false, ribbon: false, labels: ["fullcap"], strainY: VESSEL_BOTTOM },
+      html: '<h2>Imagine your life as a reservoir.</h2>' +
+            '<p>It represents the usable capacity available to you right now.</p>' },
+
+    { id: "systems", kick: "Stage 2 · The Four Life Systems", visual: { inlets: true, gold: false, tax: false, line: false, ribbon: false, labels: ["fullcap"], strainY: VESSEL_BOTTOM },
+      html: '<h2>Money · Time · Well-being · Environment</h2>' +
+            '<p>Every day, your Money, Time, Well-being, and Environment either support your capacity or quietly draw from it.</p>' +
+            '<p class="note">The four systems are framework components, not separate products or isolated categories.</p>' },
+
+    { id: "capacity", kick: "Stage 3 · Available Capacity", visual: { inlets: true, gold: true, tax: false, line: false, ribbon: false, labels: ["fullcap", "capacity"], strainY: VESSEL_BOTTOM },
+      html: '<h2>Available Capacity</h2>' +
+            '<p>This is the capacity you can actually use right now.</p>' +
+            '<p class="note">Not simply energy, time, or motivation — the usable capacity your systems currently sustain.</p>' },
+
+    { id: "symptom", kick: "Stage 4 · The Visible Symptom", visual: { inlets: true, gold: true, tax: false, line: false, ribbon: true, labels: ["fullcap", "capacity", "follow"], strainY: VESSEL_BOTTOM },
+      html: '<h2>Follow-through</h2>' +
+            '<p>When follow-through drops, we often blame discipline, motivation, or character.</p>' +
+            '<p>But the visible struggle may not be the real problem.</p>' +
+            '<p class="note">Follow-through flows out of Available Capacity. It is the outcome the system protects — not a measure of willpower.</p>' },
+
+    { id: "tax", kick: "Stage 5 · The Bandwidth Tax™", visual: { inlets: true, gold: true, tax: true, line: false, ribbon: true, labels: ["fullcap", "capacity", "tax", "follow"], strainY: 520 },
+      html: '<h2>Bandwidth Tax™</h2>' +
+            '<p>Hidden strain can accumulate across your systems without being immediately visible. That hidden cost is the Bandwidth Tax™.</p>' },
+
+    { id: "strainline", kick: "Stage 6 · The Strain Line™", visual: { inlets: true, gold: true, tax: true, line: true, ribbon: true, labels: ["fullcap", "capacity", "strain", "tax", "follow"], strainY: CANON_STRAIN },
+      html: '<h2>The Strain Line™</h2>' +
+            '<p>As hidden strain rises, the Strain Line™ rises with it.</p>' +
+            '<p>Available Capacity shrinks, and consistent Follow-through becomes harder.</p>' +
+            '<p class="note">The Strain Line™ is the readable boundary between usable capacity and hidden strain — not a score, a pass/fail threshold, or a mood indicator.</p>' },
+
+    { id: "complete", kick: "The Completed Framework", visual: { inlets: true, gold: true, tax: true, line: true, ribbon: true, labels: ["fullcap", "capacity", "strain", "tax", "follow"], strainY: CANON_STRAIN },
+      html: '<div class="reframe">The drop in follow-through was never a character flaw. It was a capacity problem — and capacity can be read, and reallocated.</div>' +
+            '<div class="bigq">Where is your <span class="tm">Strain Line™</span>?</div>' +
+            '<div class="arc">Diagnose · Stabilize · Reallocate</div>' +
+            '<p class="distinct">The Bandwidth Tax™ Framework <em>explains</em> why capacity changes. The Bandwidth Compass™ <em>reveals</em> where hidden strain is occurring. The Bandwidth Reallocation Method™ <em>changes</em> what happens next.</p>',
+      actions:
+        '<div class="cta-row">' +
+          '<button class="btn ghost" id="btnAgain" type="button">Explore again</button>' +
+          '<a class="btn gold" id="btnCompass" href="#bandwidth-compass">Continue to the Bandwidth Compass™</a>' +
+        '</div>' +
+        '<div class="explorer">' +
+          '<div class="xlab">See how strain changes the picture</div>' +
+          '<div class="levels" role="group" aria-label="Illustrative strain levels">' +
+            '<button class="lvl" data-strain="570" aria-pressed="false" type="button">Lower strain</button>' +
+            '<button class="lvl" data-strain="' + CANON_STRAIN + '" aria-pressed="true" type="button">Rising strain</button>' +
+            '<button class="lvl" data-strain="350" aria-pressed="false" type="button">High strain</button>' +
+          '</div>' +
+          '<div class="disclaim">This illustration shows how strain may affect capacity. It is not a personal diagnosis.</div>' +
+        '</div>' }
+  ];
+
+  var stageIndex = 0;
+
+  function updateProgress() {
+    var el = $("progress");
+    if (stageIndex === 0) { el.textContent = ""; return; }
+    el.textContent = stageIndex + " of " + (STAGES.length - 1);
+  }
+
+  function renderStage() {
+    var s = STAGES[stageIndex];
+    $("stageKick").textContent = s.kick;
+    $("stageCopy").innerHTML = s.html;
+    $("stageActions").innerHTML = s.actions || "";
+    updateReservoir(s.visual);
+    updateProgress();
+    $("btnPrev").disabled = (stageIndex === 0);
+    $("btnNext").disabled = (stageIndex === STAGES.length - 1);
+    /* wire per-stage buttons */
+    var b = $("btnBuild");
+    if (b) b.addEventListener("click", function () { go(1); });
+    var again = $("btnAgain");
+    if (again) again.addEventListener("click", restartExperience);
+    var compass = $("btnCompass");
+    if (compass) compass.setAttribute("href", COMPASS_URL); /* placeholder — see COMPASS_URL above */
+    document.querySelectorAll(".lvl").forEach(function (btn) {
+      btn.addEventListener("click", function () { setStrainLevel(btn); });
+    });
+  }
+
+  function go(delta) {
+    var next = Math.min(STAGES.length - 1, Math.max(0, stageIndex + delta));
+    if (next === stageIndex) return;
+    stageIndex = next;
+    renderStage();
+  }
+
+  function restartExperience() {
+    stageIndex = 0;
+    renderStage();
+  }
+
+  /* Illustrative preset levels — teaching only; computes nothing about the viewer. */
+  function setStrainLevel(btn) {
+    document.querySelectorAll(".lvl").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    btn.setAttribute("aria-pressed", "true");
+    tweenStrain(parseFloat(btn.getAttribute("data-strain")));
+  }
+
+  /* ================= Navigation ================= */
+  $("btnPrev").addEventListener("click", function () { go(-1); });
+  $("btnNext").addEventListener("click", function () { go(1); });
+  $("btnRestart").addEventListener("click", restartExperience);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+    if (e.key === "ArrowRight") { go(1); }
+    else if (e.key === "ArrowLeft") { go(-1); }
+    else if (e.key === "Home") { e.preventDefault(); restartExperience(); }
+    else if (e.key === "End") { e.preventDefault(); stageIndex = STAGES.length - 1; renderStage(); }
+    else if (e.key === "Escape") { /* reserved: closes optional help panel (none in this version) */ }
+  });
+
+  /* init */
+  setGeometry(VESSEL_BOTTOM);
+  renderStage();
+})();
+</script>
+</body>
+</html>
