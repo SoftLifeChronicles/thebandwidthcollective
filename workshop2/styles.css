@@ -586,6 +586,13 @@ section p {
   line-height: 1.8;
 }
 
+.site-footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.site-footer a:hover { color: var(--gold-light); text-decoration: underline; }
+
 /* ── Sticky register bar ── */
 
 .sticky-bar {
