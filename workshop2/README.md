@@ -12,9 +12,10 @@ workshop2/
 ├── styles.css                    ← shared brand styling (all pages)
 ├── workshop-config.js            ← ⭐ THE ONLY FILE YOU EDIT
 ├── workshop.js                   ← fills dates/links everywhere (don't edit)
-├── thank-you-full-experience.html
-├── thank-you-system-book.html
-├── thank-you-book.html
+├── private-session.html          ← invitation-only alternate date (send by private link)
+├── thank-you-full-experience-41vbtf81.html
+├── thank-you-system-book-1liz7zpn.html
+├── thank-you-book-x57j2fdr.html
 └── README.md
 ```
 
@@ -70,12 +71,15 @@ redirect** to the matching page (replace the domain with your live domain):
 
 | Stripe offer                  | Redirect URL to enter in Stripe                                        |
 |-------------------------------|------------------------------------------------------------------------|
-| The Full Experience ($250)    | `https://thebandwidthcollective.com/workshop2/thank-you-full-experience.html` |
-| The System + The Book ($116.99) | `https://thebandwidthcollective.com/workshop2/thank-you-system-book.html` |
-| The Book ($19.99)             | `https://thebandwidthcollective.com/workshop2/thank-you-book.html`     |
+| The Full Experience ($250)    | `https://thebandwidthcollective.com/workshop2/thank-you-full-experience-41vbtf81.html` |
+| The System + The Book ($116.99) | `https://thebandwidthcollective.com/workshop2/thank-you-system-book-1liz7zpn.html` |
+| The Book ($19.99)             | `https://thebandwidthcollective.com/workshop2/thank-you-book-x57j2fdr.html` |
 
 The landing page never sends visitors to a thank-you page — only Stripe does,
-after a successful payment.
+after a successful payment. The random suffixes are deliberate: these pages ARE
+the product delivery, so their URLs must not be guessable. Never link them from
+any public page, and if a URL leaks, rename the file (new suffix), update Stripe,
+and redeploy.
 
 ## Local testing
 
