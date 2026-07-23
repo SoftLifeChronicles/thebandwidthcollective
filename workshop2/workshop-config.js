@@ -33,10 +33,17 @@ var WORKSHOP_CONFIG = {
   */
   zoomRegistrationUrl: "https://us06web.zoom.us/j/86128271167?pwd=mbUh4Rv3SFQqEIM1SqRun9R4wplQgo.1",
 
-  /* Next workshop, ready to swap in after August 1:
-     workshopDateTime: "2026-08-15T09:00:00"
-     zoomRegistrationUrl: "https://us06web.zoom.us/j/81732972924?pwd=VCZrZS3IHhGJHdJZ6maveMateb5bxu.1"
+  /* ── PRIVATE SESSION (private-session.html only) ──────────
+     The invitation-only second date, for people who can't make
+     the main workshop. Sent by private link; not linked from
+     the main page. Same two-value update rule applies here.
+     After August 1, move these values up to the main settings
+     above and update this block with the next private date.
   */
+  privateSession: {
+    workshopDateTime: "2026-08-15T09:00:00",
+    zoomRegistrationUrl: "https://us06web.zoom.us/j/81732972924?pwd=VCZrZS3IHhGJHdJZ6maveMateb5bxu.1"
+  },
 
   /* ── STABLE SETTINGS (rarely change) ──────────────────────
      Stripe payment links for the three paid entry points.

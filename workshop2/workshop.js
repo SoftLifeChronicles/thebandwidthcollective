@@ -49,7 +49,15 @@
   /* ── 1. Dates, times, titles, and links from the config ── */
 
   if (typeof WORKSHOP_CONFIG !== "undefined") {
-    var when = centralToInstant(WORKSHOP_CONFIG.workshopDateTime);
+    /* A page can opt into an alternate session (e.g. the private
+       second date) via <body data-workshop-source="privateSession">.
+       Everything else falls back to the main settings. */
+    var sourceKey = document.body.getAttribute("data-workshop-source");
+    var override = (sourceKey && WORKSHOP_CONFIG[sourceKey]) || null;
+    var dateISO = (override && override.workshopDateTime) || WORKSHOP_CONFIG.workshopDateTime;
+    var zoomUrl = (override && override.zoomRegistrationUrl) || WORKSHOP_CONFIG.zoomRegistrationUrl;
+
+    var when = centralToInstant(dateISO);
 
     if (!isNaN(when.getTime())) {
 
@@ -114,7 +122,7 @@
     /* Zoom registration links — single source: config */
     var zoomLinks = document.querySelectorAll("a[data-zoom-link]");
     for (var z = 0; z < zoomLinks.length; z++) {
-      zoomLinks[z].setAttribute("href", WORKSHOP_CONFIG.zoomRegistrationUrl);
+      zoomLinks[z].setAttribute("href", zoomUrl);
     }
 
     /* Stripe links — stable settings in config */
