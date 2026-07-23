@@ -362,6 +362,20 @@ section p {
 
 .entry-lede { margin-bottom: 32px; }
 
+.pull-line {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 4vw, 22px);
+  font-style: italic;
+  color: var(--gold);
+  line-height: 1.5;
+  margin: 28px 0 24px;
+}
+
+.pull-line em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
 /* ── The four systems ── */
 
 .systems {
