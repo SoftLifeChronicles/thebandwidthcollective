@@ -67,7 +67,7 @@ var WORKSHOP_CONFIG = {
     bookEpub:    "https://overwhelm-leaves-clues-ebook.netlify.app/Overwhelm-Leaves-Clues.epub",
     bookPdf:     "https://overwhelm-leaves-clues-ebook.netlify.app/overwhelm-leaves-clues.pdf",
     system:      "https://soft-life-chronicles.netlify.app/overwhelm-reset",
-    callBooking: "REPLACE_WITH_1ON1_CALL_BOOKING_URL"
+    callBooking: "https://calendar.app.google/UPkDCc2MFJ8vLJGb6"
   }
 
 };
