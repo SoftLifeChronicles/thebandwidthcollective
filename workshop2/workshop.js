@@ -144,6 +144,8 @@
       if (pUrl && pUrl.indexOf("REPLACE_WITH") !== 0) {
         productBtns[p].setAttribute("href", pUrl);
         productBtns[p].hidden = false;
+        var row = productBtns[p].closest ? productBtns[p].closest("[data-dl-item]") : null;
+        if (row) row.hidden = false;
       }
     }
     var dlSections = document.querySelectorAll("[data-downloads]");
