@@ -9,6 +9,8 @@
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 :root {
   --gold: #C9A84C;
   --gold-light: #E7C76A;
