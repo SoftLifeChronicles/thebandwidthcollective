@@ -133,6 +133,29 @@
         stripeLinks[s].setAttribute("href", WORKSHOP_CONFIG.stripeLinks[key]);
       }
     }
+
+    /* Product delivery buttons (thank-you pages) — a button only
+       appears once its config URL is real; while any button in a
+       downloads section is unconfigured, the fallback note shows. */
+    var productBtns = document.querySelectorAll("a[data-product]");
+    for (var p = 0; p < productBtns.length; p++) {
+      var pk = productBtns[p].getAttribute("data-product");
+      var pUrl = WORKSHOP_CONFIG.productLinks && WORKSHOP_CONFIG.productLinks[pk];
+      if (pUrl && pUrl.indexOf("REPLACE_WITH") !== 0) {
+        productBtns[p].setAttribute("href", pUrl);
+        productBtns[p].hidden = false;
+      }
+    }
+    var dlSections = document.querySelectorAll("[data-downloads]");
+    for (var d = 0; d < dlSections.length; d++) {
+      var visible = dlSections[d].querySelectorAll("a[data-product]:not([hidden])").length;
+      var total = dlSections[d].querySelectorAll("a[data-product]").length;
+      if (visible > 0) dlSections[d].hidden = false;
+      if (visible === total) {
+        var fb = dlSections[d].querySelector("[data-downloads-fallback]");
+        if (fb) fb.hidden = true;
+      }
+    }
   }
 
   /* ── 2. Scroll-reveal (respects prefers-reduced-motion) ── */

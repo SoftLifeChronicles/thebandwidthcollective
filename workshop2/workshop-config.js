@@ -53,6 +53,21 @@ var WORKSHOP_CONFIG = {
     fullExperience: "https://buy.stripe.com/5kQdRbaZBbI69hneav5Ne0c",
     systemBook:     "https://buy.stripe.com/5kQbJ37Np9zYbpv0jF5Ne0h",
     book:           "https://buy.stripe.com/dRm00l9VxdQe8dj3vR5Ne0e"
+  },
+
+  /* ── PRODUCT DELIVERY LINKS (stable) ──────────────────────
+     The thank-you pages ARE the delivery mechanism (Stripe
+     redirects buyers there after payment — no emails sent).
+     Each URL becomes a download/access button on the matching
+     thank-you page. A button stays hidden until its placeholder
+     is replaced with a real URL, and buyers see a "contact
+     help@" fallback line instead — so nothing broken ever shows.
+  */
+  productLinks: {
+    bookEpub:    "https://overwhelm-leaves-clues-ebook.netlify.app/Overwhelm-Leaves-Clues.epub",
+    bookPdf:     "https://overwhelm-leaves-clues-ebook.netlify.app/overwhelm-leaves-clues.pdf",
+    system:      "https://soft-life-chronicles.netlify.app/overwhelm-reset",
+    callBooking: "REPLACE_WITH_1ON1_CALL_BOOKING_URL"
   }
 
 };
